@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Znak iz loga Synthesis Pharma: epruveta s mjehurićima -->
+  <rect width="512" height="512" rx="112" fill="#ffffff"/>
+  <g transform="translate(256 262) scale(0.6) translate(-253 -350)">
+    <circle cx="226" cy="85" r="73" fill="#12a3c4"/>
+    <circle cx="341" cy="172" r="56" fill="#7ac143"/>
+    <circle cx="227" cy="230" r="31" fill="#12a3c4"/>
+    <path d="M183 268 V612 A70 70 0 0 0 323 612 V268" fill="none" stroke="#403838" stroke-width="24"/>
+    <path d="M156 268 H206 M300 268 H350" stroke="#403838" stroke-width="16" stroke-linecap="round"/>
+    <path d="M218 380 L288 346 V612 A35 35 0 0 1 218 612 Z" fill="#12a3c4"/>
+    <circle cx="270" cy="296" r="24" fill="#7ac143"/>
+    <circle cx="227" cy="323" r="15" fill="#12a3c4"/>
+  </g>
+</svg>

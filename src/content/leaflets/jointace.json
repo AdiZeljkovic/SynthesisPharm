@@ -1,0 +1,120 @@
+{
+  "slug": "jointace",
+  "colors": {
+    "primary": "#1a3b8b",
+    "secondary": "#ea5d05"
+  },
+  "hero": {
+    "tagline": "Snažna podrška zdravlju zglobova uz dodatak kurkume",
+    "paragraphs": [
+      "Jointace Original je pažljivo formulisan dodatak prehrani, osmišljen kako bi podržao zdravlje vaših zglobova i omogućio pokret bez bola. Nova, poboljšana formula sadrži moćne sastojke poput glukozamina, hondroitina, kurkume, đumbira, kao i ključnih vitamina i minerala, koji zajedno djeluju na smanjenje bola i ukočenosti, poboljšanje fleksibilnosti i dugoročno zdravlje vaših zglobova.",
+      "Kurkumin, aktivni sastojak kurkume, poznat je po svojim ljekovitim svojstvima, koja pomažu u smanjenju upale, glavnog uzroka bola i otežanog kretanja. Đumbir dodatno doprinosi smanjenju ukočenosti zglobova i poboljšanju pokretljivosti. Kada se koriste zajedno, efekti se pojačavaju, pružajući vam dugoročnu podršku."
+    ],
+    "image": "/images/leaflets/jointace/original.jpg",
+    "imageAlt": "Pakovanje Jointace Original tableta uz ilustraciju koljena"
+  },
+  "sections": [
+    {
+      "type": "product",
+      "name": "Jointace Original",
+      "label": "ORIGINAL",
+      "color": "#ea5d05",
+      "headline": "Snažna podrška zdravlju zglobova uz dodatak kurkume",
+      "paragraphs": [
+        "Pored ovih moćnih sastojaka, Jointace Original sadrži i važne vitamine poput vitamina D, koji podržava zdravlje kostiju i mišića, te vitamina B12 i B9, koji su ključni za bolji protok krvi i ishranu hrskavice zgloba.",
+        "Vitamin E, selen i vitamin C štite zglobno tkivo od daljnjeg propadanja podstičući stvaranje kolagena, što doprinosi očuvanju strukture i elastičnosti zgloba. Minerali poput bakra, mangana i selena igraju ključnu ulogu u zdravlju zglobova i održavanju njihove funkcije.",
+        "Preporučena doza su dvije tablete dnevno uz glavni obrok. Za najbolje rezultate, preporučuje se kontinuirano korištenje.",
+        "Pružite svojim zglobovima najbolju moguću podršku i uživajte u svakodnevnim aktivnostima bez bola i nelagode."
+      ]
+    },
+    {
+      "type": "product",
+      "name": "Jointace Collagen",
+      "label": "COLLAGEN",
+      "color": "#c00079",
+      "headline": "Kolagen za snažne i pokretljive zglobove",
+      "paragraphs": [
+        "Jointace Collagen je pažljivo formuliran dodatak prehrani koji sadrži kolagen, glukozamin, hondroitin, đumbir, te ključne vitamine i minerale koji podržavaju zdravlje zglobova i hrskavice. Ova jedinstvena kombinacija sastojaka pomaže u obnovi, jačanju zglobova, smanjenju bola i poboljšanju pokretljivosti.",
+        "Kolagen je glavni dio hrskavice, a njegov hidrolizirani oblik u Jointace Collagen tabletama omogućava visoku stopu iskorištenosti u organizmu. Zajedno s glukozaminom i hondroitinom, kolagen stvara materiju koja čuva elastičnost i sprječava propadanje zglobova.",
+        "Pored toga, Jointace Collagen sadrži vitamin D, koji sprječava napredak bolesti, vitamin C, koji doprinosi sintezi kolagena, cink, selen i mangan, koji podupiru zdravlje zglobova i pomažu u smanjenju upale.",
+        "Za najbolje rezultate, preporučuje se uzimanje dvije tablete dnevno uz glavni obrok, uz kontinuiranu upotrebu."
+      ],
+      "image": "/images/leaflets/jointace/collagen.jpg",
+      "imageAlt": "Pakovanje Jointace Collagen tableta i starija žena koja se isteže",
+      "imageAfterParagraph": 1
+    },
+    {
+      "type": "product",
+      "name": "Jointace Omega-3",
+      "label": "OMEGA-3",
+      "color": "#018dae",
+      "headline": "Vaš saveznik za zdrave i pokretne zglobove kroz cijeli život",
+      "paragraphs": [
+        "Jointace Omega-3 je dodatak ishrani koji pruža sveobuhvatnu podršku zdravlju zglobova i hrskavice zahvaljujući kombinaciji glukozamina, omega-3 masnih kiselina, ulja jetre bakalara, te ključnih vitamina i minerala. Ova formula smanjuje upalu i ukočenost zglobova, pomaže kod otoka zglobova i doprinosi zdravlju hrskavice.",
+        "Omega-3 kiseline i lecitin zajedno ostvaruju bolji efekat – dok omega-3 ublažava bolove i upale, a lecitin pomaže očuvanju elastičnosti hrskavice. Ulje jetre bakalara dodatno smanjuje jutarnju ukočenost zglobova, što je posebno korisno osobama s hroničnim tegobama.",
+        "Uz to, vitamini D, C i E, kao i selen, cink, mangan, bor i bakar, igraju ključnu ulogu u očuvanju zdravih zglobova i kostiju. Ovi nutrijenti podržavaju stvaranje kolagena, smanjuju upalu i doprinose boljoj pokretljivosti.",
+        "Preporučuje se uzimanje dvije kapsule dnevno uz glavni obrok. Za najbolje rezultate može se koristiti kontinuirano ili u ciklusima od tri mjeseca s pauzom od mjesec do mjesec i po.",
+        "Redovna suplementacija može značajno smanjiti tegobe i očuvati zdravlje hrskavice."
+      ],
+      "image": "/images/leaflets/jointace/omega-3.jpg",
+      "imageAlt": "Pakovanje Jointace Omega-3 kapsula uz ilustraciju kostiju šake",
+      "imageAfterParagraph": 2
+    },
+    {
+      "type": "product",
+      "name": "Jointace Gel",
+      "label": "GEL",
+      "color": "#77b82a",
+      "headline": "Prirodna podrška za ukočene i bolne zglobove",
+      "paragraphs": [
+        "Jointace Gel je inovativni proizvod za lokalnu primjenu koji sadrži glukozamin, hondroitin, mentol i aromaterapijska ulja poput eukaliptusa, lavande, đumbira, karanfilića, komorača i slatke naranče. Ovaj gel koristi naprednu tehnologiju koja omogućava postepeno otpuštanje i maksimalno prodiranje u kožu, pružajući olakšanje kod bolova i upala zglobova.",
+        "Mentol izaziva efekat hlađenja na koži, smanjujući bol, otok i umanjujući nelagodnost koja često prati artritis. Pored toga, aromaterapijska ulja koja su prisutna u ovom gelu donose dodatne protuupalne, analgetske i opuštajuće efekte, poboljšavajući pokretljivost zglobova i smanjujući stres.",
+        "Jointace Gel se primjenjuje svakih 12 sati direktno na bolno mjesto. Ne nanosite ga na otvorene rane. Gel nema vremenskih ograničenja u upotrebi i može se koristiti kontinuirano kako bi se postigao dugotrajan efekat."
+      ],
+      "image": "/images/leaflets/jointace/gel.jpg",
+      "imageAlt": "Kutija i tuba Jointace Gel",
+      "imageAfterParagraph": 2
+    },
+    {
+      "type": "image",
+      "image": "/images/leaflets/jointace/gel-2.jpg",
+      "imageAlt": "Tuba Jointace Gel na stolu ispred ruku starije osobe",
+      "width": 674,
+      "height": 1014
+    },
+    {
+      "type": "product",
+      "name": "Jointace Patch",
+      "label": "PATCH",
+      "color": "#009a3c",
+      "headline": "Flasteri sa 6 vrsta prirodnih ulja za direktno djelovanje na bolne zglobove i mišiće",
+      "paragraphs": [
+        "Jointace Patch je specijalizirani flaster koji pruža direktnu terapiju bolnim zglobovima i mišićima, posebno kod osoba sa artritisom ili drugim oboljenjima zglobova. Ovi flasteri sadrže glukozamin, hondroitin i 6 esencijalnih aromaterapijskih ulja (eukaliptus, đumbir, komorač, lavanda, klinčić, slatka naranča), koji se postepeno otpuštaju, omogućujući dugotrajan terapeutski efekt.",
+        "Aromaterapijska ulja pružaju protuupalne, analgetske i relaksirajuće efekte koji mogu poboljšati cirkulaciju, smanjiti otoke, bolove i ukočenost, te pospješiti pokretljivost zglobova. Ovi flasteri također mogu imati pozitivan učinak na emocionalno stanje, smanjujući stres i napetost."
+      ],
+      "image": "/images/leaflets/jointace/patch.jpg",
+      "imageAlt": "Pakovanje Jointace Patch flastera u travi pored fudbalske lopte i kopački",
+      "imageAfterParagraph": 1
+    },
+    {
+      "type": "feature",
+      "title": "Ključne karakteristike Jointace Patch:",
+      "bullets": [
+        "Lokalizovano dejstvo – Flasteri direktno djeluju na bolne zglobove i mišiće, smanjujući bol i upalu.",
+        "Kontinuirana aplikacija – Aktivne supstance se oslobađaju tokom cijelog dana ili noći, pružajući dugotrajan efekt bez potrebe za čestom primjenom.",
+        "Praktična upotreba – Jednostavni su za nošenje i ne ostavljaju tragove na koži, što ih čini pogodnim za svakodnevnu upotrebu.",
+        "Pomoć u smanjenju bolova – Idealni su za osobe sa artritisom, reumatoidnim artritisom i sličnim bolestima zglobova."
+      ]
+    },
+    {
+      "type": "feature",
+      "paragraphs": [
+        "Jointace Patch se primjenjuje svakih 12 sati na bolno područje. Ne nanosite flaster na otvorene rane. Flasteri nemaju vremenskih ograničenja u upotrebi i mogu se koristiti kontinuirano za postizanje optimalnih rezultata."
+      ]
+    }
+  ],
+  "closing": {
+    "title": "Možemo li Vam pomoći?",
+    "text": "Kontaktirajte nas."
+  }
+}

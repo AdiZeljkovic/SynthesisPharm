@@ -1,0 +1,57 @@
+{
+  "slug": "feroglobin",
+  "colors": {
+    "primary": "#ae3735",
+    "secondary": "#781517"
+  },
+  "hero": {
+    "tagline": "Vaš nježni zaštitnik.",
+    "paragraphs": [
+      "Feroglobin je željezom bogat proizvod, rezultat najnovijih naučnih saznanja i dosega. Potražite ga u obliku kapsula s vremenski postepenim otpuštanjem ili u obliku sirupa.",
+      "Sporootpuštajuće željezo u organskom obliku ne pada teško na želudac, pa Feroglobin mogu koristiti i najosjetljiviji pacijenti."
+    ],
+    "image": "/images/leaflets/feroglobin/hero.jpg",
+    "imageAlt": "Trudnica na balkonu velikog crvenog slova F, dvoje djece skače ispod, a muškarac stoji sa strane"
+  },
+  "sections": [
+    {
+      "type": "variants",
+      "items": [
+        {
+          "name": "Feroglobin Liquid",
+          "image": "/images/leaflets/feroglobin/pack-liquid.jpg",
+          "caption": "Jedinstvena i blaga formula pogodna je za upotrebu i kod djece starije od tri godine."
+        },
+        {
+          "name": "Feroglobin Capsules",
+          "image": "/images/leaflets/feroglobin/pack-capsules.jpg",
+          "caption": "Sistem sporog otpuštanja Feroglobin kapsula sprječava pojavu viška željeza u želucu i osigurava oslobađanje nutrijenata u krv, postepeno i ravnomjerno."
+        }
+      ]
+    },
+    {
+      "type": "feature",
+      "title": "Za koga je Feroglobin posebno dobar?",
+      "bullets": [
+        "Za žene koje imaju menstruaciju, jer gube željezo svakog mjeseca i imaju veću potrebu za njegovim unosom.",
+        "Za vegetarijance i vegane, jer pomažu u očuvanju zdravlja i svakodnevnog unosa željeza i vitamina B12 koji su u hrani biljnog porijekla prisutni u manjim količinama.",
+        "Za trudnice i buduće majke čiji organizmi imaju povećanu potrebu za željezom, jer proizvode više krvi za svoje bebe koje rastu.",
+        "Za djecu koja rastu, kako bi se osigurao dnevni unos vitalnih hranljivih tvari kakvo je željezo koje doprinosi normalnom stanju i kognitivnom razvoju djece.",
+        "Za sportiste, jer pruža podršku njihovim optimalnim performansama zahvaljujući željezu i vitaminima B6 i B12 i doprinose smanjenju umora i iscrpljenosti."
+      ],
+      "image": "/images/leaflets/feroglobin/photo-mother-child.jpg",
+      "imageAlt": "Majka leži na podu i drži kćerku na koljenima, obje se smiju",
+      "imageSide": "left"
+    },
+    {
+      "type": "feature",
+      "lead": "Željezo ima vitalnu ulogu u našem organizmu pri formiranju hemoglobina i crvenih krvnih zrnaca. Ono je esencijalni mineral koji doprinosi normalnom transportu kisika u tijelu.",
+      "image": "/images/leaflets/feroglobin/illustration.jpg",
+      "imageAlt": "Ilustracija: Zdravstvene dobrobiti od željeza – Potiče hemoglobin; Liječi anemiju; Sprječava gubitak kose i potiče njen rast; Reguliše temperaturu tijela; Poboljšava koncentraciju; Smanjuje umor; Vraća dobar san; Poboljšava imunitet; Potiče funkciju mozga",
+      "imageSide": "right"
+    }
+  ],
+  "closing": {
+    "title": "Možemo li Vam pomoći?"
+  }
+}

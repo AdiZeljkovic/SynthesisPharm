@@ -1,0 +1,104 @@
+{
+  "slug": "osteocare",
+  "colors": {
+    "primary": "#042b4c",
+    "secondary": "#73b2e6"
+  },
+  "hero": {
+    "tagline": "Bezuslovna briga za Vaše kosti.",
+    "paragraphs": [
+      "Osteoporoza je najčešća metabolička bolest kostiju, koju karakteriše gubitak koštane mase. Kosti zbog toga postaju krte i sklone frakturi.",
+      "Procjena je da 8 -10% svjetske populacije boluje od osteoporoze.",
+      "U terapiji osteoporoze najvažnija je prevencija. Pravilna ishrana, umjerena tjelesna aktivnost i izbjegavanje rizičnih faktora (prekomjerno konzumiranje alkohola, pušenje, ishrana siromašna kalcijumom i vitaminom D) osnovni su principi prevencije osteoporoze, a dodatnu potporu, posebno kod upotrebe određenih lijekova (npr. kortikosteroidi i hormoni) pruža vam Osteocare."
+    ],
+    "note": "Potražite u najbližoj apoteci",
+    "image": "/images/leaflets/osteocare/hero.jpg",
+    "imageAlt": "Slovo O oblikovano od kosti s pršljenovima kičme na tamnoplavoj pozadini"
+  },
+  "sections": [
+    {
+      "type": "variants",
+      "items": [
+        {
+          "name": "Osteocare® Original",
+          "image": "/images/leaflets/osteocare/pack-original.jpg",
+          "caption": "Osteocare® Original osigurava 25µg dnevnog unosa vitamina D3. U skladu sa smjernicama britanskog Kraljevskog društva za osteoporozu, pažljivo je balansiran sa dodacima kalcijuma, cinka i magnezijuma."
+        },
+        {
+          "name": "Osteocare® sirup",
+          "image": "/images/leaflets/osteocare/pack-sirup.jpg",
+          "caption": "Osteocare® sirup je glatke, tečne teksture izvrsnog okusa. Idealan je za djecu ili one koji imaju poteškoće s gutanjem tableta."
+        },
+        {
+          "name": "Osteocare® Plus",
+          "image": "/images/leaflets/osteocare/pack-plus.jpg",
+          "caption": "Osteocare® Plus kombinuje Osteocare® original tablete sa izoflavonima iz soje i Omega-3 kapsule u praktičnom 2 u 1 pakovanju."
+        }
+      ]
+    },
+    {
+      "type": "feature",
+      "title": "Mislite da su kosti čvrste i nepromjenljive?",
+      "lead": "Varate se!",
+      "paragraphs": [
+        "Kosti su živo tkivo koje je u stanju stalnih promjena. Da bi kosti bile zdrave, u vašu svakodnevnicu trebate uvesti unos potrebnih nutrijenata kakvi su kalcijum (neophodan za održavanje normalnog zdravlja kostiju) i vitamin D (neophodan za normalnu apsorpciju i korištenje kalcijuma). Ali, jeste li znali da su i magnezijum, cink i drugi minerali važni za kosti?",
+        "I muškarci, kao i žene, tokom života gube koštanu masu, ali kosti žena nakon menopauze, gube gustoću mnogo brže zbog smanjenja nivoa estrogena. Istraživanja pokazuju da svakodnevan i dovoljan unos potrebnih minerala može pomoći zdravlju vaših kostiju u godinama koje dolaze."
+      ],
+      "image": "/images/leaflets/osteocare/photo-1.jpg",
+      "imageAlt": "Nasmijana žena u bijeloj majici i trapericama skače od radosti",
+      "imageSide": "left"
+    },
+    {
+      "type": "nutrients",
+      "intro": "Osteocare® asortiman suplemenata je formulisan i razvijen na osnovu objavljenih naučnih istraživanja, kao rezultat rada vodećih nutricionista i farmaceuta.",
+      "items": [
+        {
+          "symbol": "Ca",
+          "name": "Kalcijum",
+          "text": "Mineral neophodan za rast i razvoj kostiju, njihovo zarastanje i održavanje koštane snage."
+        },
+        {
+          "symbol": "Mg",
+          "name": "Magnezijum",
+          "text": "Njegova uloga u koštanom metabolizmu je od velikog značaja. Utiče na osteoblaste i osteoklaste, povećavajući utilizaciju kalcijuma."
+        },
+        {
+          "symbol": "D3",
+          "name": "Vitamin D3",
+          "text": "Pomaže pri apsorpciji kalcijuma, smanjuje gubitak koštane mase, obnavljanje i mineralizaciju kostiju i stimulaciju mišićnog tkiva."
+        },
+        {
+          "symbol": "Zn",
+          "name": "Cink",
+          "text": "Neophodan za formiranje proteinskog matriksa u sastavu koštanog tkiva. Cink i D3 vitamin imaju kombinovani i višestruki efekat na stimulaciju mineralizacije kostiju."
+        },
+        {
+          "symbol": "Cu",
+          "name": "Bakar",
+          "text": "Važan kofaktor u sintezi koštanih ćelija."
+        },
+        {
+          "symbol": "Mn",
+          "name": "Mangan",
+          "text": "Neophodan za enzime uključene u održavanje koštanog matriksa."
+        },
+        {
+          "symbol": "Se",
+          "name": "Selen",
+          "text": "Antioksidativnim dejstvom usporava procese degeneracije i starenja koštanog tkiva."
+        },
+        {
+          "symbol": "B",
+          "name": "Bor",
+          "text": "Pomaže u održavanju homeostaze kalcijuma i magnezijuma tako što poboljšava njihovu apsorpciju i utilizaciju."
+        }
+      ],
+      "outro": "Svaki sastojak u Osteocare® asortimanu predstavlja bogat izvor kalcijuma i podržavajuće kofaktore koji pomažu u održavanju normalnog zdravlja kostiju. Sa Osteocare proizvodima vaš organizam dobija sve što mu je potrebno.",
+      "image": "/images/leaflets/osteocare/illustration-runner.jpg",
+      "imageAlt": "Ilustracija žene koja trči, s uvećanim prikazom zgloba lakta i koljena"
+    }
+  ],
+  "closing": {
+    "title": "Možemo li Vam pomoći?"
+  }
+}

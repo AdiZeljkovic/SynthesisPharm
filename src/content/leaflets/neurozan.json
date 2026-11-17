@@ -1,0 +1,51 @@
+{
+  "slug": "neurozan",
+  "colors": {
+    "primary": "#722281",
+    "secondary": "#fffa66"
+  },
+  "hero": {
+    "tagline": "Nahranite Vaš mozak.",
+    "paragraphs": [
+      "Vašem mozgu je potreban širok spektar esencijalnih nutrijenata koji rade zajedno kako bi osigurali optimalno zdravlje i performanse.",
+      "Neurozan® je dodatak prehrani na bazi prirodnih bio-aktivnih nutrijenata, koji pomažu u očuvanju moždane funkcije i poboljšanju kognitivnih sposobnosti. Svaka tableta sadrži pet bitnih aminokiselina: L-arginin, L-glutamin, glutation, fosfatidilserin, fosfatidilholin.",
+      "Esencijalne aminokiseline i fosfolipidi su neophodni za regeneraciju mozga, održavanje membranskog i aksonskog transporta i uspostavljanje komunikacija između nervnih ćelija, što predstavlja osnovu učenja i memorije.",
+      "Neurozan® također sadrži i visoke doze antioksidanasa - koenzim Q10, gvožđe, cink, mangan, bakar, selen i hrom, kao i vitamine bitne za čovjekov organizam i poboljšanje kognitivnih funkcija - D3, E, C, B1, B2, B3, B5, B6, B12 i folna kiselina."
+    ],
+    "note": "Potražite u apotekama.",
+    "image": "/images/leaflets/neurozan/pack.jpg",
+    "imageAlt": "Pakovanje Neurozan Original tableta"
+  },
+  "sections": [
+    {
+      "type": "benefits",
+      "items": [
+        "Poboljšava memoriju",
+        "Poboljšava koncentraciju",
+        "Osigurava kvalitetan san",
+        "Sprječava oksidativni stres",
+        "Regeneriše moždane ćelije",
+        "Bolje kognitivne funkcije",
+        "Popravlja raspoloženje",
+        "Pomaže kod učenja i čitanja"
+      ],
+      "paragraphs": [
+        "Vaš mozak je izuzetno složena struktura i organ koji sadrži oko 100 milijardi neurona s oko kvadrilion veza među njima. Zbog njegove složene strukture mozgu je potrebna velika količina energije za učinkovit rad i funkcionisanje. Iako mozak čini u prosjeku samo 2% ukupne tjelesne mase, on upotrebljava oko 20 % kalorija, stoga je potrebno paziti i birati vrstu i količinu namirnica, vitamina, minerala i drugih mikronutrijenata koje unosite u organizam.",
+        "U današnjem brzom životu sa mnogo izazova i stresa jako je teško voditi računa o kvalitetnoj ishrani, a naročito mentalnim vježbama za mozak. Također umoru i opterećenju mozga značajno doprinose pametni uređaji koje svakodnevno koristimo i više nego što bismo trebali. Da biste olakšali brigu o Vašem organizmu i mozgu stručnjaci iz kompanije Vitabiotics su dizajnirali pametnu tabletu Neurozan®.",
+        "Pronađite Neurozan® dodatak prehrani u najbližoj apoteci i uvjerite se u nevjerovatne rezultate njegovog konzumiranja."
+      ],
+      "image": "/images/leaflets/neurozan/brain.jpg",
+      "imageAlt": "Ilustracija mozga"
+    },
+    {
+      "type": "image",
+      "image": "/images/leaflets/neurozan/illustration.jpg",
+      "imageAlt": "Ilustracija nasmijanog muškarca s mozgom iz kojeg raste cvijet, okruženog cvijećem i srcima",
+      "width": 1100,
+      "height": 930
+    }
+  ],
+  "closing": {
+    "title": "Možemo li Vam pomoći?"
+  }
+}

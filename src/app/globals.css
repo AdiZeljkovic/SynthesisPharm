@@ -1,26 +1,297 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* Boje iz loga: plava "Synthesis", zelena "Pharma", tamna epruveta */
+  --color-brand-50: #ecf8fb;
+  --color-brand-100: #d0eef6;
+  --color-brand-200: #a3dcec;
+  --color-brand-300: #6cc6df;
+  /* 400 = boja loga (ukrasi, ikone); 500+ su tamnije nijanse za dugmad/tekst (kontrast ≥ 4.5:1 s bijelim) */
+  --color-brand-400: #12a3c4;
+  --color-brand-500: #0a7a96;
+  --color-brand-600: #0d6a83;
+  --color-brand-700: #0f5a6e;
+  --color-brand-800: #11566a;
+  --color-brand-900: #12485a;
+  --color-brand-950: #062e3b;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-leaf-50: #f3f9ec;
+  --color-leaf-100: #e3f2d3;
+  --color-leaf-200: #c8e5ab;
+  --color-leaf-300: #a5d478;
+  --color-leaf-400: #8bc853;
+  --color-leaf-500: #7ac143;
+  --color-leaf-600: #477627;
+  --color-leaf-700: #3b5e24;
+  --color-leaf-800: #3b5e24;
+  --color-leaf-900: #334f22;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-ink: #1f2a30;
+  --color-muted: #5b6b73;
+  --color-surface: #f5f9fa;
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--color-ink);
+}
+
+::selection {
+  background: var(--color-brand-200);
+}
+
+/* Reveal-on-scroll (vidi components/Reveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Otkrivanje slike "zavjesom" odozdo + lagani zoom-out */
+.reveal-clip {
+  clip-path: inset(100% 0 0 0 round 2rem);
+  transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.18, 1);
+}
+.reveal-clip img {
+  transform: scale(1.18);
+  transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-clip.is-visible {
+  clip-path: inset(0 0 0 0 round 2rem);
+}
+.reveal-clip.is-visible img {
+  transform: none;
+}
+
+/* Naslovi: riječi izranjaju jedna za drugom (vidi components/SplitWords.tsx) */
+.split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+.split-word > span {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i) * 55ms + 80ms);
+}
+.is-visible .split-word > span {
+  transform: none;
+}
+.split-load .split-word > span {
+  transition: none;
+  animation: word-up 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i) * 70ms + 150ms);
+}
+@keyframes word-up {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* Spotlight koji prati kursor na karticama (vidi components/Spotlight.tsx) */
+[data-spotlight] {
+  position: relative;
+}
+[data-spotlight]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in oklab, var(--color-brand-400) 14%, transparent),
+    transparent 45%
+  );
+}
+[data-spotlight]:hover::after {
+  opacity: 1;
+}
+
+/* Hero: video se usporeno pomjera, a tekst blijedi dok se skroluje (scroll-driven animacije) */
+@supports (animation-timeline: scroll()) {
+  .hero-parallax {
+    animation: hero-parallax linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 100vh;
+  }
+  .hero-fade {
+    animation: hero-fade linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 75vh;
+  }
+}
+@keyframes hero-parallax {
+  to {
+    transform: translateY(22vh) scale(1.08);
+  }
+}
+@keyframes hero-fade {
+  to {
+    opacity: 0;
+    transform: translateY(-70px);
+  }
+}
+
+/* Pregled letka */
+.leaflet-dialog[open] {
+  animation: dialog-in 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-18px, 14px);
+  }
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.12);
+  }
+}
+
+/* Indikator skrolovanja */
+@keyframes scroll-dot {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+}
+
+/* Lenis: iframe (mapa) ostaje interaktivan, gasi se samo dok traje skrolovanje */
+.lenis.lenis-smooth iframe {
+  pointer-events: auto;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ───────── View Transitions (prelazi između stranica) ───────── */
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+::view-transition-old(.page) {
+  animation: 180ms cubic-bezier(0.4, 0, 1, 1) both vt-fade-out;
+}
+::view-transition-new(.page) {
+  animation: 420ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both vt-rise-in;
+}
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+    filter: blur(2px);
+  }
+}
+@keyframes vt-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(3px);
+  }
+}
+
+/* Slika proizvoda/logo brenda "preraste" iz kartice u stranicu */
+::view-transition-group(.morph) {
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 50;
+}
+::view-transition-image-pair(.morph) {
+  animation-name: vt-via-blur;
+}
+@keyframes vt-via-blur {
+  30% {
+    filter: blur(3px);
+  }
+}
+
+/* Filter u katalogu: mreža se pretapa */
+::view-transition-old(.grid-swap) {
+  animation: 160ms ease-in both vt-fade-out;
+}
+::view-transition-new(.grid-swap) {
+  animation: 320ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both vt-rise-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-clip,
+  .reveal-clip img,
+  .split-word > span {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    transition: none;
+    animation: none;
+  }
+  .hero-parallax,
+  .hero-fade {
+    animation: none;
+  }
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
 }
