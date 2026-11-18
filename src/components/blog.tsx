@@ -16,7 +16,7 @@ export function PostMetaLine({ post, light = false }: { post: PostMeta; light?: 
   );
 }
 
-export function PostCard({ post, featured = false }: { post: PostMeta; featured?: boolean }) {
+export function PostCard({ post, featured = false, priority = false }: { post: PostMeta; featured?: boolean; priority?: boolean }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
@@ -32,8 +32,8 @@ export function PostCard({ post, featured = false }: { post: PostMeta; featured?
             alt={post.coverAlt}
             fill
             sizes={featured ? "(min-width: 1024px) 60vw, 100vw" : "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"}
-            {...(featured ? { loading: "eager" as const, fetchPriority: "high" as const } : {})}
-            className="object-cover object-[50%_25%] transition duration-700 group-hover:scale-105"
+            {...(priority ? { loading: "eager" as const, fetchPriority: "high" as const } : {})}
+            className="object-cover object-center transition duration-700 group-hover:scale-105"
           />
         </div>
       </ViewTransition>

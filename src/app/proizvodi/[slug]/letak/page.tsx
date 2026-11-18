@@ -104,6 +104,7 @@ export default async function LeafletPage({ params }: PageProps<"/proizvodi/[slu
             <Reveal variant="clip" className="relative mx-auto w-fit max-w-full overflow-hidden rounded-[2rem] shadow-2xl shadow-black/30">
               <Image
                 src={doc.hero.image}
+                quality={90}
                 alt={doc.hero.imageAlt}
                 width={1400}
                 height={1400}

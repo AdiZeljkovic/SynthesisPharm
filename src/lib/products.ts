@@ -3,7 +3,7 @@ export type Leaflet = { src: string; width: number; height: number };
 export type Product = {
   slug: string;
   name: string;
-  brand: "vitabiotics" | "lerbolario";
+  brand: "vitabiotics";
   image: string;
   /** Fotografija pakovanja (ako postoji) */
   photo?: string;
@@ -19,12 +19,6 @@ const v = (p: Omit<Product, "brand" | "image"> & { image?: string }): Product =>
   image: `/images/products/${p.slug}.jpg`,
   ...p,
 });
-const l = (p: Omit<Product, "brand" | "image">): Product => ({
-  brand: "lerbolario",
-  image: `/images/products/${p.slug}.jpg`,
-  ...p,
-});
-
 export const products: Product[] = [
   // ───────────── Vitabiotics ─────────────
   v({
@@ -119,145 +113,6 @@ export const products: Product[] = [
       "Visionace dodatak prehrani predstavlja najkompletniju formulu za oči, nastalu kao rezultat dugogodišnjeg naučnog ispitivanja britanske kompanije Vitabiotics. Vitaminsko-mineralna formulacija koju preporučuju vodeći britanski oftalmolozi.",
   }),
 
-  // ───────────── L'Erbolario ─────────────
-  l({
-    slug: "accordo-viola",
-    name: "Accordo Viola",
-    description:
-      "Dok ljubičice sramežljivo cvjetaju svake godine u sjenovitim šumama, pjesnici ih slave u stihovima, a slikari na platnima zbog nevjerovatno nježnih latica i iznimnog mirisa.",
-  }),
-  l({
-    slug: "lilla-lilla",
-    name: "Lillà Lillà",
-    description:
-      "Odlika koja je jorgovane učinila slavnima je njihov cvjetni i zaista „bezbrižan” miris. Jako je rijetko grmlje koje može dostići tako jedinstven miris kao onaj koji jorgovani šire u aprilu i maju!",
-  }),
-  l({
-    slug: "iris",
-    name: "Iris",
-    description:
-      "Šaroliki iris, poznat i kao perunika, pruža toliko zamamnih nijansi i boja da ne čudi da je u staroj Grčkoj riječ „Iris” označavala dugu. Raskošna ljepota ovog cvijeta cijeni se još od drevnog Egipta.",
-  }),
-  l({
-    slug: "3-rosa",
-    name: "3 Rosa",
-    description:
-      "3 Rosa je jedinstveni miris koji objedinjuje posebne, ali sjajno usklađene osobnosti bogate galske ruže, poticajnih bobica crvenog papra i ponosnog i ukrasnog vrtnog sljeza.",
-  }),
-  l({
-    slug: "rosa-purpurea",
-    name: "Rosa Purpurea",
-    description:
-      "Potpuno novi pogled na miris dragocjenog romantičnog cvijeta – ruže. Parfemisana, iznenađujuće ženstvena i senzualna linija, stvorena kako bi predstavila ljepotu svake žene.",
-  }),
-  l({
-    slug: "golden-bouquet",
-    name: "Golden Bouquet",
-    description:
-      "Simbol svjetlosti, radosti i bogatstva – blistava zlatna boja „ulijeva se” u formulu ove dragocjene kreme za tijelo: hidratantni bagremov med za glatku kožu kombinuje se s ekstraktima cvijeća zlatne boje, poput zlatnice i hidratantnog žutog irisa.",
-  }),
-  l({
-    slug: "bouquet-dargento",
-    name: "Bouquet d'Argento",
-    description:
-      "Srebro predstavlja cjelovitu i sveobuhvatnu ljepotu: povezano je s Mjesečevom simbolikom, a samim tim i s intuicijom, unutrašnjom mudrošću i ženstvenošću. Također je energično i veličanstveno.",
-  }),
-  l({
-    slug: "sfumature-di-dalia",
-    name: "Sfumature di Dalia",
-    description:
-      "Suštinu cvijeta dalije čine pustolovna putovanja, istraživanja i egzotična mjesta. Dalija je nacionalni cvijet Meksika i simbol poštovanja, suosjećanja, dostojanstva i otmjenosti.",
-  }),
-  l({
-    slug: "ortensia",
-    name: "Ortensia",
-    description:
-      "Dugotrajna i raskošna ljepota u cvatu. U svakom vrtu, elegantna prisutnost i ponosno držanje cvijeta hortenzije plijeni pažnju svojim veličanstvenim, okruglim cvjetovima nalik šarenim oblacima i raskošnim listovima.",
-  }),
-  l({
-    slug: "karite",
-    name: "Karité",
-    description:
-      "Od davnina su afričke žene imale nezamjenjivu tajnu ljepote: karite maslac. Dobiva se od ploda impresivne Vitellaria paradoxa, poznate i kao „drvo mladosti”. Poznat je po omekšavajućim i antioksidativnim svojstvima i jedan je od izvrsnih eliksira protiv starenja.",
-  }),
-  l({
-    slug: "cocco",
-    name: "Cocco",
-    description:
-      "Fair trade egzotična mirisna linija spremna za putovanja. Kokos je mirisna linija koja naša čula vodi prema rajskim odredištima – bogat i velikodušan miris, dizajniran u mini formatima bez vanjskog pakovanja.",
-  }),
-  l({
-    slug: "accordo-arancio",
-    name: "Accordo Arancio",
-    description:
-      "Narandžasta je jedna od najsjajnijih boja i simbolizira mnogo pozitivnih stvari. Ova intenzivna boja duboko je povezana s unutrašnjom vitalnošću i harmonijom te uravnotežuje raspoloženje.",
-  }),
-  l({
-    slug: "krema-za-ruke-maslinovo-ulje",
-    name: "Krema za ruke s maslinovim uljem",
-    description:
-      "L'Erbolario krema za ruke s maslinovim uljem i vitaminom E. Dragocjena hidratantna, hranjiva i omekšavajuća svojstva ove kreme tonizuju i održavaju kožu ruku elastičnom, štite je od vanjskih faktora i bore se protiv ljuskave i crvene kože.",
-  }),
-  l({
-    slug: "sampon-protiv-prhuti",
-    name: "Šampon protiv peruti",
-    description:
-      "Pročišćavajući i osvježavajući tretman za regulisanje proizvodnje sebuma kod kose s upornom peruti.",
-  }),
-  l({
-    slug: "frescaessenza",
-    name: "Frescaessenza",
-    description:
-      "Frescaessenza nastaje iz kore agruma i topline drveta, dvaju suprotnosti koje se, iako različite, privlače i jedna drugu naglašavaju, stvarajući onu „najljepšu harmoniju” o kojoj je govorio Heraklit.",
-  }),
-  l({
-    slug: "papavero-soave",
-    name: "Papavero Soave",
-    description:
-      "Svjež, cvjetni miris maka prisutan je u ovoj liniji proizvoda s formulama koje se temelje na dragocjenim aktivnim derivatima maka.",
-  }),
-  l({
-    slug: "linija-za-sunce",
-    name: "Linija za sunce",
-    description:
-      "L'Erbolario donosi široku liniju proizvoda za zaštitu od sunca, posebno formulisanu za lice i usne, budući da je koža na tim područjima nježnija, a starenje kože lako primjetno.",
-  }),
-  l({
-    slug: "sampon-sport",
-    name: "Šampon Sport",
-    description:
-      "Dva proizvoda s ekstraktima mirte i žalfije posvećena su svima koji se bave intenzivnim sportskim aktivnostima i redovno posjećuju teretane, bazene i saune.",
-  }),
-  l({
-    slug: "ginepro-nero",
-    name: "Ginepro Nero",
-    description:
-      "Dugački, igličasti listovi borovice koji paraju zrak oko sebe i obavijaju ga bodljikavom i oštrom aromom. Zelenilo koje se njiše s vjetrom, savijajući se nježno, ali stabilno.",
-  }),
-  l({
-    slug: "meharees",
-    name: "Méharées",
-    description:
-      "Pravo putovanje za čula, od jedne oaze do druge, prema potpunom blagostanju o kojem vaša koža oduvijek sanja. Proizvodi ove linije povezuju jedinstvenu učinkovitost i privlačnost zaista čarobnog mirisa za lijepu i svježu kožu.",
-  }),
-  l({
-    slug: "baobab",
-    name: "Baobab",
-    description:
-      "Tonizirajuća i osvježavajuća mirisna linija Baobab za muškarce obogaćena je notama citrusa (limeta, zelena mandarina, bergamot), tragovima baobaba i galbanuma te drvenastim notama cedra i copaiba balzama.",
-  }),
-  l({
-    slug: "frangipani",
-    name: "Frangipani",
-    description:
-      "Plumeria rubra ili frangipani srce je ove linije jedinstvenog mirisa, obavijene mekim, toplim, slatkim i umirujućim notama. L'Erbolario laboratorij odabrao je cvijet plumerije sicilijanskog porijekla kako bi preradom svježe biljke dobio aktivne sastojke koji ističu ovu liniju.",
-  }),
-  l({
-    slug: "melograno",
-    name: "Melograno",
-    description:
-      "Kolekcija senzualnog mirisa bogata svježinom, posvećena jedinstvenom stablu nara koje se od davnina, zbog obilja cvijeća i sočnih plodova, povezuje sa simbolikom prosperiteta, veličanstvenosti i ponovnog rođenja.",
-  }),
 ];
 
 export function getProduct(slug: string) {

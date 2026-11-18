@@ -39,7 +39,7 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
       <h2 className="sr-only">Tekstovi</h2>
       <ViewTransition key={active ?? "sve"} enter="grid-swap" exit="grid-swap" default="none">
         <div className="space-y-6">
-          {first && <PostCard post={first} featured />}
+          {first && <PostCard post={first} featured priority />}
           {rest.length > 0 && (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {rest.map((p) => (

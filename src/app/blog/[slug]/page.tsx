@@ -116,7 +116,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
           <Container className="max-w-5xl pb-4">
             <ViewTransition name={`post-${post.slug}`} share="morph" default="none">
               <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] bg-surface shadow-[0_30px_70px_-30px_rgba(6,46,59,0.35)]">
-                <Image src={post.cover} alt={post.coverAlt} fill fetchPriority="high" loading="eager" sizes="(min-width: 1024px) 1000px, 100vw" className="object-cover object-[50%_25%]" />
+                <Image src={post.cover} alt={post.coverAlt} fill fetchPriority="high" loading="eager" sizes="(min-width: 1024px) 1000px, 100vw" className="object-cover object-center" />
               </div>
             </ViewTransition>
           </Container>

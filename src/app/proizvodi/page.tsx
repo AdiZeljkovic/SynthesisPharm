@@ -8,7 +8,7 @@ import { products, productsByBrand } from "@/lib/products";
 
 export const metadata: Metadata = pageMetadata({
   title: "Proizvodi",
-  description: "Dodaci prehrani Vitabiotics i dermokozmetika L'Erbolario – pregled proizvoda iz ponude Synthesis Pharme.",
+  description: "Dodaci prehrani Vitabiotics – pregled proizvoda iz ponude Synthesis Pharme.",
   path: "/proizvodi",
 });
 
@@ -21,7 +21,7 @@ export default function ProductsPage() {
     <>
       <PageHero
         title="Proizvodi"
-        subtitle="Vrhunska ponuda dodataka prehrani i dermokozmetike renomiranih evropskih brendova."
+        subtitle="Vrhunska ponuda dodataka prehrani renomiranih evropskih brendova."
         image="/images/banners/proizvodi.jpg"
         crumbs={[{ href: "/", label: "Početna" }, { label: "Proizvodi" }]}
       />

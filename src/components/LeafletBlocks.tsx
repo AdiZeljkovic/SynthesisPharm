@@ -62,7 +62,7 @@ function Variants({ block }: { block: VariantsBlock }) {
             <figure data-spotlight className="flex h-full flex-col overflow-hidden rounded-3xl bg-white ring-1 ring-slate-100">
               {/* #f3f4f9 = pozadina letka oko pakovanja, da se slika stopi s karticom */}
               <div className="relative aspect-square bg-[#f3f4f9]">
-                <Image src={v.image} alt={v.name} fill sizes="(min-width: 1024px) 30vw, 50vw" className="object-contain p-8" />
+                <Image quality={90} src={v.image} alt={v.name} fill sizes="(min-width: 1024px) 30vw, 50vw" className="object-contain p-8" />
               </div>
               <figcaption className="flex-1 border-t border-slate-100 p-6">
                 <p className="font-extrabold text-ink">{v.name}</p>
@@ -96,7 +96,7 @@ function Feature({ block, index }: { block: FeatureBlock; index: number }) {
   return (
     <Container className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
       <Reveal variant="clip" className={`relative overflow-hidden rounded-[2rem] ${imageLeft ? "" : "lg:order-2"}`}>
-        <Image
+        <Image quality={90}
           src={block.image}
           alt={block.imageAlt ?? ""}
           width={1400}
@@ -138,7 +138,7 @@ function Nutrients({ block }: { block: NutrientsBlock }) {
         </div>
         {block.image && (
           <Reveal variant="clip" className="relative overflow-hidden rounded-[2rem] lg:sticky lg:top-32 lg:col-span-5">
-            <Image src={block.image} alt={block.imageAlt ?? ""} width={1400} height={1000} sizes="(min-width: 1024px) 40vw, 100vw" className="h-auto w-full" />
+            <Image quality={90} src={block.image} alt={block.imageAlt ?? ""} width={1400} height={1000} sizes="(min-width: 1024px) 40vw, 100vw" className="h-auto w-full" />
           </Reveal>
         )}
       </div>
@@ -172,7 +172,7 @@ function Benefits({ block }: { block: BenefitsBlock }) {
         {block.image && (
           <Reveal className="order-1 mx-auto lg:order-2">
             <div className="relative grid size-56 place-items-center rounded-full bg-white shadow-[0_30px_70px_-30px_rgba(0,0,0,0.35)] ring-8 ring-brand-50 sm:size-72">
-              <Image src={block.image} alt={block.imageAlt ?? ""} width={400} height={400} className="h-auto w-3/4" />
+              <Image quality={90} src={block.image} alt={block.imageAlt ?? ""} width={400} height={400} className="h-auto w-3/4" />
             </div>
           </Reveal>
         )}
@@ -215,7 +215,7 @@ function Product({ block, index, hideHeadline }: { block: ProductBlock; index: n
         <div className="grid gap-10 px-6 pb-12 pt-4 sm:px-12 lg:grid-cols-2 lg:items-start">
           {block.image && (
             <Reveal variant="clip" className={`relative overflow-hidden rounded-[1.5rem] bg-surface lg:sticky lg:top-32 ${imageLeft ? "" : "lg:order-2"}`}>
-              <Image
+              <Image quality={90}
                 src={block.image}
                 alt={block.imageAlt ?? block.name}
                 width={1400}
@@ -241,7 +241,7 @@ function ImageFigure({ block }: { block: ImageBlock }) {
       {/* Okvir je širok koliko slika smije biti uz maks. visinu 720px, pa uglovi ostaju zaobljeni */}
       <div className="mx-auto" style={{ maxWidth: `${Math.round((720 * block.width) / block.height)}px` }}>
         <Reveal variant="clip" as="figure" className="overflow-hidden rounded-[2rem]">
-          <Image
+          <Image quality={90}
             src={block.image}
             alt={block.imageAlt}
             width={block.width}

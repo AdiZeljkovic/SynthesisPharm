@@ -111,8 +111,8 @@ export default async function Home() {
           <div className="relative">
             <Reveal variant="clip" className="relative aspect-[4/5] overflow-hidden rounded-[2rem]">
               <Image
-                src="/images/about/team-1.jpg"
-                alt="Magistra farmacije priprema narudžbu u skladištu Synthesis Pharme"
+                src="/images/about/farmaceut.jpg"
+                alt="Farmaceut slaže proizvode na police u skladištu Synthesis Pharme"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
@@ -138,7 +138,7 @@ export default async function Home() {
         <Container>
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
             <SectionHeading eyebrow="Izdvojeni proizvodi" title="Šta nudimo?">
-              Za vas smo odabrali vrhunsku ponudu dermokozmetike, dodataka prehrani, medicinskih proizvoda te
+              Za vas smo odabrali vrhunsku ponudu mliječnih formula za dojenčad, dodataka prehrani, medicinskih proizvoda te
               proizvoda za samoliječenje.
             </SectionHeading>
             <ButtonLink href="/proizvodi" variant="outline">
@@ -281,8 +281,9 @@ export default async function Home() {
             </div>
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {latestPosts.map((p, i) => (
-                <Reveal key={p.slug} delay={i * 100}>
-                  <PostCard post={p} />
+                // Jedan članak → široka (istaknuta) kartica preko cijele širine
+                <Reveal key={p.slug} delay={i * 100} className={latestPosts.length === 1 ? "sm:col-span-2 lg:col-span-3" : ""}>
+                  <PostCard post={p} featured={latestPosts.length === 1} />
                 </Reveal>
               ))}
             </div>

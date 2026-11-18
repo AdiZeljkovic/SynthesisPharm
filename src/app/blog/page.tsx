@@ -23,7 +23,7 @@ export default async function BlogPage() {
       <PageHero
         title="Blog"
         subtitle="Savjeti o zdravlju, prehrani i proizvodima iz naše ponude."
-        image="/images/about/team-1.jpg"
+        image="/images/about/farmaceut.jpg"
         crumbs={[{ href: "/", label: "Početna" }, { label: "Blog" }]}
       />
       <section className="bg-surface py-16 sm:py-20">

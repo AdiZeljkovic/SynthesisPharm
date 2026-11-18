@@ -59,8 +59,8 @@ export default function AboutPage() {
             <div className="grid grid-cols-2 gap-4">
               <Reveal variant="clip" className="relative mt-12 aspect-[2/3] overflow-hidden rounded-[2rem]">
                 <Image
-                  src="/images/about/team-1.jpg"
-                  alt="Priprema narudžbi u skladištu"
+                  src="/images/about/farmaceut.jpg"
+                  alt="Farmaceut slaže proizvode na police u skladištu"
                   fill
                   sizes="(min-width: 1024px) 25vw, 50vw"
                   className="object-cover"
@@ -94,7 +94,7 @@ export default function AboutPage() {
               </p>
               <p className="mt-4 text-base">
                 Ovakva saradnja donosi vrhunske rezultate, što pokazuje i uspješna saradnja s brendovima kao što su
-                Bayer Consumer Health, Vitabiotics, Recordati i L&apos;Erbolario.
+                Bayer Consumer Health, Vitabiotics, Recordati i Nestlé NAN.
               </p>
             </SectionHeading>
             <div className="mt-10">

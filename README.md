@@ -17,7 +17,7 @@ npm run build && npm start   # produkcija
 | `/` | Početna – video hero, o nama, izdvojeni proizvodi, brendovi, letci, brojke |
 | `/o-nama` | O kompaniji, usluge, vrijednosti |
 | `/brendovi` | Pregled brendova |
-| `/brendovi/[slug]` | Vitabiotics, L'Erbolario, Bayer Consumer Health, Recordati |
+| `/brendovi/[slug]` | Vitabiotics, Nestlé NAN, Bayer Consumer Health, Recordati |
 | `/proizvodi` | Katalog s filterom po brendu i pretragom |
 | `/proizvodi/[slug]` | Stranica proizvoda (+ najava letka gdje postoji) |
 | `/proizvodi/[slug]/letak` | Edukativni letak kao HTML stranica (Osteocare, Feroglobin, Neurozan, Jointace) |

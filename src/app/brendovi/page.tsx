@@ -9,7 +9,7 @@ import { productsByBrand } from "@/lib/products";
 
 export const metadata: Metadata = pageMetadata({
   title: "Brendovi",
-  description: "Vitabiotics, L'Erbolario, Bayer Consumer Health i Recordati – renomirani evropski brendovi koje Synthesis Pharma predstavlja na tržištu BiH.",
+  description: "Vitabiotics, Nestlé NAN, Bayer Consumer Health i Recordati – renomirani evropski brendovi koje Synthesis Pharma predstavlja na tržištu BiH.",
   path: "/brendovi",
 });
 

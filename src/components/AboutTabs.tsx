@@ -16,12 +16,12 @@ const tabs = [
   {
     key: "proizvodi",
     label: "Proizvodi",
-    items: ["Lijekovi", "Dodaci prehrani", "Medicinska sredstva", "Dermokozmetika"],
+    items: ["Lijekovi", "Dodaci prehrani", "Medicinska sredstva", "Mliječne formule za dojenčad"],
   },
   {
     key: "brendovi",
     label: "Brendovi",
-    items: ["Recordati", "Bayer Consumer Health", "Vitabiotics", "L'Erbolario"],
+    items: ["Recordati", "Bayer Consumer Health", "Vitabiotics", "Nestlé NAN"],
   },
 ];
 

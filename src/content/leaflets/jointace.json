@@ -71,16 +71,9 @@
         "Mentol izaziva efekat hlađenja na koži, smanjujući bol, otok i umanjujući nelagodnost koja često prati artritis. Pored toga, aromaterapijska ulja koja su prisutna u ovom gelu donose dodatne protuupalne, analgetske i opuštajuće efekte, poboljšavajući pokretljivost zglobova i smanjujući stres.",
         "Jointace Gel se primjenjuje svakih 12 sati direktno na bolno mjesto. Ne nanosite ga na otvorene rane. Gel nema vremenskih ograničenja u upotrebi i može se koristiti kontinuirano kako bi se postigao dugotrajan efekat."
       ],
-      "image": "/images/leaflets/jointace/gel.jpg",
-      "imageAlt": "Kutija i tuba Jointace Gel",
-      "imageAfterParagraph": 2
-    },
-    {
-      "type": "image",
       "image": "/images/leaflets/jointace/gel-2.jpg",
       "imageAlt": "Tuba Jointace Gel na stolu ispred ruku starije osobe",
-      "width": 674,
-      "height": 1014
+      "imageAfterParagraph": 2
     },
     {
       "type": "product",
@@ -92,8 +85,8 @@
         "Jointace Patch je specijalizirani flaster koji pruža direktnu terapiju bolnim zglobovima i mišićima, posebno kod osoba sa artritisom ili drugim oboljenjima zglobova. Ovi flasteri sadrže glukozamin, hondroitin i 6 esencijalnih aromaterapijskih ulja (eukaliptus, đumbir, komorač, lavanda, klinčić, slatka naranča), koji se postepeno otpuštaju, omogućujući dugotrajan terapeutski efekt.",
         "Aromaterapijska ulja pružaju protuupalne, analgetske i relaksirajuće efekte koji mogu poboljšati cirkulaciju, smanjiti otoke, bolove i ukočenost, te pospješiti pokretljivost zglobova. Ovi flasteri također mogu imati pozitivan učinak na emocionalno stanje, smanjujući stres i napetost."
       ],
-      "image": "/images/leaflets/jointace/patch.jpg",
-      "imageAlt": "Pakovanje Jointace Patch flastera u travi pored fudbalske lopte i kopački",
+      "image": "/images/leaflets/jointace/patch-flaster.jpg",
+      "imageAlt": "Kutija i otvorena kesica Jointace Patch flastera na sivom stolu pored biljke",
       "imageAfterParagraph": 1
     },
     {

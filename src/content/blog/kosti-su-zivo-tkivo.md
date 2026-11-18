@@ -3,8 +3,8 @@ title: "Kosti su živo tkivo: minerali koji ih čuvaju kroz cijeli život"
 excerpt: "Mislite da su kosti čvrste i nepromjenljive? Kosti se stalno obnavljaju, a za to im trebaju kalcijum, vitamin D i niz manje poznatih minerala."
 date: "2026-11-17"
 category: "Zdravlje kostiju"
-cover: "/images/leaflets/osteocare/photo-1.jpg"
-coverAlt: "Nasmijana žena u bijeloj majici i trapericama skače od radosti"
+cover: "/images/blog/kosti-cover.jpg"
+coverAlt: "Slovo O oblikovano od kosti s pršljenovima kičme na tamnoplavoj pozadini"
 author: "Synthesis Pharma"
 products: ["osteocare"]
 ---

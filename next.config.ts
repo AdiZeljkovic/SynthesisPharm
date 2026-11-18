@@ -6,7 +6,7 @@ const legacyPages: Record<string, string> = {
   "/about-2.html": "/o-nama",
   "/pricing-2.html": "/brendovi",
   "/vitabiotics.html": "/brendovi/vitabiotics",
-  "/lerbolario.html": "/brendovi/lerbolario",
+  "/lerbolario.html": "/brendovi", // brend više nije u ponudi
   "/bayer-consumer-health.html": "/brendovi/bayer-consumer-health",
   "/recordati.html": "/brendovi/recordati",
   "/contact.html": "/kontakt",

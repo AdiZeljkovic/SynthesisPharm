@@ -19,12 +19,12 @@
       "items": [
         {
           "name": "Feroglobin Liquid",
-          "image": "/images/leaflets/feroglobin/pack-liquid.jpg",
+          "image": "/images/leaflets/feroglobin/pack-liquid-hd.jpg",
           "caption": "Jedinstvena i blaga formula pogodna je za upotrebu i kod djece starije od tri godine."
         },
         {
           "name": "Feroglobin Capsules",
-          "image": "/images/leaflets/feroglobin/pack-capsules.jpg",
+          "image": "/images/leaflets/feroglobin/pack-capsules-hd.jpg",
           "caption": "Sistem sporog otpuštanja Feroglobin kapsula sprječava pojavu viška željeza u želucu i osigurava oslobađanje nutrijenata u krv, postepeno i ravnomjerno."
         }
       ]
@@ -39,14 +39,14 @@
         "Za djecu koja rastu, kako bi se osigurao dnevni unos vitalnih hranljivih tvari kakvo je željezo koje doprinosi normalnom stanju i kognitivnom razvoju djece.",
         "Za sportiste, jer pruža podršku njihovim optimalnim performansama zahvaljujući željezu i vitaminima B6 i B12 i doprinose smanjenju umora i iscrpljenosti."
       ],
-      "image": "/images/leaflets/feroglobin/photo-mother-child.jpg",
+      "image": "/images/leaflets/feroglobin/photo-mother-child-hd.jpg",
       "imageAlt": "Majka leži na podu i drži kćerku na koljenima, obje se smiju",
       "imageSide": "left"
     },
     {
       "type": "feature",
       "lead": "Željezo ima vitalnu ulogu u našem organizmu pri formiranju hemoglobina i crvenih krvnih zrnaca. Ono je esencijalni mineral koji doprinosi normalnom transportu kisika u tijelu.",
-      "image": "/images/leaflets/feroglobin/illustration.jpg",
+      "image": "/images/leaflets/feroglobin/illustration-hd.jpg",
       "imageAlt": "Ilustracija: Zdravstvene dobrobiti od željeza – Potiče hemoglobin; Liječi anemiju; Sprječava gubitak kose i potiče njen rast; Reguliše temperaturu tijela; Poboljšava koncentraciju; Smanjuje umor; Vraća dobar san; Poboljšava imunitet; Potiče funkciju mozga",
       "imageSide": "right"
     }

@@ -21,17 +21,17 @@
       "items": [
         {
           "name": "Osteocare® Original",
-          "image": "/images/leaflets/osteocare/pack-original.jpg",
+          "image": "/images/leaflets/osteocare/pack-original-hd.jpg",
           "caption": "Osteocare® Original osigurava 25µg dnevnog unosa vitamina D3. U skladu sa smjernicama britanskog Kraljevskog društva za osteoporozu, pažljivo je balansiran sa dodacima kalcijuma, cinka i magnezijuma."
         },
         {
           "name": "Osteocare® sirup",
-          "image": "/images/leaflets/osteocare/pack-sirup.jpg",
+          "image": "/images/leaflets/osteocare/pack-sirup-hd.jpg",
           "caption": "Osteocare® sirup je glatke, tečne teksture izvrsnog okusa. Idealan je za djecu ili one koji imaju poteškoće s gutanjem tableta."
         },
         {
           "name": "Osteocare® Plus",
-          "image": "/images/leaflets/osteocare/pack-plus.jpg",
+          "image": "/images/leaflets/osteocare/pack-plus-hd.jpg",
           "caption": "Osteocare® Plus kombinuje Osteocare® original tablete sa izoflavonima iz soje i Omega-3 kapsule u praktičnom 2 u 1 pakovanju."
         }
       ]
@@ -44,7 +44,7 @@
         "Kosti su živo tkivo koje je u stanju stalnih promjena. Da bi kosti bile zdrave, u vašu svakodnevnicu trebate uvesti unos potrebnih nutrijenata kakvi su kalcijum (neophodan za održavanje normalnog zdravlja kostiju) i vitamin D (neophodan za normalnu apsorpciju i korištenje kalcijuma). Ali, jeste li znali da su i magnezijum, cink i drugi minerali važni za kosti?",
         "I muškarci, kao i žene, tokom života gube koštanu masu, ali kosti žena nakon menopauze, gube gustoću mnogo brže zbog smanjenja nivoa estrogena. Istraživanja pokazuju da svakodnevan i dovoljan unos potrebnih minerala može pomoći zdravlju vaših kostiju u godinama koje dolaze."
       ],
-      "image": "/images/leaflets/osteocare/photo-1.jpg",
+      "image": "/images/leaflets/osteocare/photo-1-hd.jpg",
       "imageAlt": "Nasmijana žena u bijeloj majici i trapericama skače od radosti",
       "imageSide": "left"
     },
@@ -94,7 +94,7 @@
         }
       ],
       "outro": "Svaki sastojak u Osteocare® asortimanu predstavlja bogat izvor kalcijuma i podržavajuće kofaktore koji pomažu u održavanju normalnog zdravlja kostiju. Sa Osteocare proizvodima vaš organizam dobija sve što mu je potrebno.",
-      "image": "/images/leaflets/osteocare/illustration-runner.jpg",
+      "image": "/images/leaflets/osteocare/illustration-runner-hd.jpg",
       "imageAlt": "Ilustracija žene koja trči, s uvećanim prikazom zgloba lakta i koljena"
     }
   ],
