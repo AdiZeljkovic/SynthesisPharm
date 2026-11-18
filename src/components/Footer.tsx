@@ -3,12 +3,10 @@ import Link from "next/link";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { brands } from "@/lib/brands";
 import { nav, site } from "@/lib/site";
-import { cacheLife } from "next/cache";
 import { SocialLinks } from "./SocialIcons";
 
-async function CurrentYear() {
-  "use cache";
-  cacheLife("days");
+/** Godina pri buildu – statični sajt se ponovo builduje pri svakoj objavi iz admina. */
+function CurrentYear() {
   return new Date().getFullYear();
 }
 

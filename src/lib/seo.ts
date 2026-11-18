@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { site } from "./site";
 
+/** Putanja stranice sa kosom crtom na kraju (sajt koristi trailingSlash: "/o-nama" → "/o-nama/"). */
+export function pagePath(path: string) {
+  return path === "/" ? "/" : path.replace(/\/?$/, "/");
+}
+
 export const DEFAULT_OG_IMAGE = { url: "/video/hero-poster.jpg", width: 1920, height: 1080, alt: "Synthesis Pharma – Sarajevo" };
 
 type PageMetaInput = {
@@ -36,12 +41,12 @@ export function pageMetadata({
   return {
     title: absoluteTitle ? { absolute: title } : title,
     description,
-    alternates: { canonical: path },
+    alternates: { canonical: pagePath(path) },
     openGraph: {
       type,
       locale: "bs_BA",
       siteName: site.name,
-      url: path,
+      url: pagePath(path),
       title: fullTitle,
       description,
       images,
@@ -117,7 +122,7 @@ export function breadcrumbLd(crumbs: { href?: string; label: string }[]) {
       "@type": "ListItem",
       position: i + 1,
       name: c.label,
-      ...(c.href ? { item: `${site.url}${c.href === "/" ? "" : c.href}` } : {}),
+      ...(c.href ? { item: `${site.url}${pagePath(c.href)}` } : {}),
     })),
   };
 }

@@ -33,13 +33,7 @@ export async function generateMetadata({ params }: PageProps<"/proizvodi/[slug]/
   });
 }
 
-/**
- * Svi slugovi su poznati (generateStaticParams) pa je stranica potpuno statična.
- * `instant = false`: params se čitaju direktno, bez <Suspense> granice – sadržaj je odmah u HTML-u,
- * bez kašnjenja pri otkrivanju (LCP) i bez skoka footera (CLS).
- */
-export const instant = false;
-
+/** Svi slugovi su poznati (generateStaticParams) – stranica se generiše pri buildu. */
 export default async function LeafletPage({ params }: PageProps<"/proizvodi/[slug]/letak">) {
   const { slug } = await params;
   const doc = getLeaflet(slug);

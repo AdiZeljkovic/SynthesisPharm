@@ -2,7 +2,6 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
 import { Marked, Renderer } from "marked";
-import { cacheLife } from "next/cache";
 import { slugify, type PostMeta } from "./blog-utils";
 
 export { formatDate, slugify, type PostMeta } from "./blog-utils";
@@ -35,8 +34,6 @@ function render(markdown: string) {
 }
 
 async function loadAll(): Promise<Post[]> {
-  "use cache";
-  cacheLife("hours");
   const files = (await fs.readdir(DIR)).filter((f) => f.endsWith(".md"));
   const posts = await Promise.all(
     files.map(async (file) => {

@@ -40,3 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# generisane WebP verzije slika (scripts/optimize-images.mjs)
+/public/_img/

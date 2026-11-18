@@ -36,19 +36,13 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
   });
 }
 
-/**
- * Svi slugovi su poznati (generateStaticParams) pa je stranica potpuno statična.
- * `instant = false`: params se čitaju direktno, bez <Suspense> granice – sadržaj je odmah u HTML-u,
- * bez kašnjenja pri otkrivanju (LCP) i bez skoka footera (CLS).
- */
-export const instant = false;
-
+/** Svi slugovi su poznati (generateStaticParams) – stranica se generiše pri buildu. */
 export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) notFound();
 
-  const url = `${site.url}/blog/${post.slug}`;
+  const url = `${site.url}/blog/${post.slug}/`;
   const products = post.products.map((s) => getProduct(s)).filter((p) => p !== undefined);
   const more = (await getPosts()).filter((p) => p.slug !== post.slug).slice(0, 3);
 

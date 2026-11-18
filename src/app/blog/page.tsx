@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: "Savjeti o zdravlju, prehrani i proizvodima iz ponude Synthesis Pharme.",
     path: "/blog",
   }),
-  alternates: { canonical: "/blog", types: { "application/rss+xml": "/blog/rss.xml" } },
+  alternates: { canonical: "/blog/", types: { "application/rss+xml": "/blog/rss.xml" } },
 };
 
 export default async function BlogPage() {

@@ -2,9 +2,53 @@
 
 import { useActionState } from "react";
 import { CheckCircle2, Loader2, Send, TriangleAlert } from "lucide-react";
-import { sendContact, type ContactState, type ContactValues } from "@/app/kontakt/actions";
+import { site } from "@/lib/site";
+
+type ContactValues = { name: string; email: string; phone: string; subject: string; message: string };
+type ContactState = {
+  status: "idle" | "success" | "error";
+  message?: string;
+  errors?: Partial<Record<keyof ContactValues, string>>;
+  values?: ContactValues;
+};
 
 const initial: ContactState = { status: "idle" };
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/**
+ * Sajt je statičan (Windows Plesk bez Node.js-a), pa forma šalje na PHP: /api/kontakt.php
+ * (public/api/kontakt.php). Ista validacija je i ovdje, za trenutnu povratnu informaciju.
+ */
+async function sendContact(_prev: ContactState, formData: FormData): Promise<ContactState> {
+  const get = (k: string) => String(formData.get(k) ?? "").trim();
+  const values: ContactValues = {
+    name: get("name"),
+    email: get("email"),
+    phone: get("phone"),
+    subject: get("subject"),
+    message: get("message"),
+  };
+
+  const errors: ContactState["errors"] = {};
+  if (values.name.length < 2) errors.name = "Unesite ime i prezime.";
+  if (!EMAIL_RE.test(values.email)) errors.email = "Unesite ispravnu email adresu.";
+  if (values.message.length < 10) errors.message = "Poruka treba imati barem 10 znakova.";
+  if (Object.keys(errors).length) return { status: "error", message: "Molimo ispravite označena polja.", errors, values };
+
+  try {
+    const res = await fetch("/api/kontakt.php", { method: "POST", body: new URLSearchParams(formData as never) });
+    const data = (await res.json()) as ContactState;
+    if (data.status === "success") return { status: "success", message: data.message };
+    return { status: "error", message: data.message, errors: data.errors, values };
+  } catch {
+    // npr. lokalni `next dev` (nema PHP-a) ili prekid veze
+    return {
+      status: "error",
+      message: `Slanje trenutno nije dostupno. Molimo pišite nam direktno na ${site.email}.`,
+      values,
+    };
+  }
+}
 
 const inputCls =
   "w-full rounded-2xl border bg-white px-5 py-3.5 text-base outline-none transition placeholder:text-muted/70 focus:border-brand-400 focus:ring-4 focus:ring-brand-100";
