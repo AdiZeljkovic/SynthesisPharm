@@ -101,15 +101,24 @@ export const api = {
   }) => post<SaveResult>("/content.php", body),
 
   media: (fresh = false) => get<{ items: MediaItem[] }>(`/media.php?action=list${fresh ? "&fresh=1" : ""}`),
+  /** Hosting odbija zahtjeve veće od ~1 MB, pa se slika šalje u dijelovima od 512 KB (server ih spaja). */
   async upload(file: Blob, name: string) {
-    const fd = new FormData();
-    fd.append("action", "upload");
-    fd.append("name", name);
-    fd.append("file", file, name);
-    return request<{ path: string; width: number; height: number; size: number; pending: true }>("/media.php", {
-      method: "POST",
-      body: fd,
-    });
+    type Done = { path: string; width: number; height: number; size: number; pending: true };
+    const CHUNK = 512 * 1024;
+    const total = Math.max(1, Math.ceil(file.size / CHUNK));
+    const uploadId = Array.from(crypto.getRandomValues(new Uint8Array(16)), (b) => b.toString(16).padStart(2, "0")).join("");
+    let result: Done | null = null;
+    for (let index = 0; index < total; index++) {
+      const fd = new FormData();
+      fd.append("action", "upload");
+      fd.append("name", name);
+      fd.append("total", String(total));
+      fd.append("index", String(index));
+      fd.append("uploadId", uploadId);
+      fd.append("file", file.slice(index * CHUNK, (index + 1) * CHUNK), name);
+      result = await request<Done>("/media.php", { method: "POST", body: fd });
+    }
+    return result!;
   },
   discard: (path: string) => post<{ ok: true }>("/media.php", { action: "discard", path }),
   imgUrl: (path: string, w: 160 | 400 | 1200 | 0 = 400) =>

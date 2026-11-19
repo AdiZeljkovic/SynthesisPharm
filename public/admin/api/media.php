@@ -193,6 +193,8 @@ if (method() !== 'POST') {
 }
 
 /* ───────── Otpremanje ───────── */
+// Hosting (WAF) odbija zahtjeve veće od ~1 MB, pa browser veće slike šalje u dijelovima od 512 KB
+// (uploadId, index, total); server ih spaja i tek onda provjerava sliku.
 if (isset($_POST['action']) && $_POST['action'] === 'upload') {
     if (!isset($_FILES['file'])) {
         fail('Slika nije poslana (možda je prevelika).');
@@ -204,25 +206,73 @@ if (isset($_POST['action']) && $_POST['action'] === 'upload') {
     if ($f['error'] !== UPLOAD_ERR_OK || !is_uploaded_file($f['tmp_name'])) {
         fail('Otpremanje nije uspjelo (greška ' . $f['error'] . ').');
     }
-    if ($f['size'] > 15 * 1024 * 1024) {
+    $total = isset($_POST['total']) ? (int) $_POST['total'] : 1;
+    $index = isset($_POST['index']) ? (int) $_POST['index'] : 0;
+    $uploadId = isset($_POST['uploadId']) ? (string) $_POST['uploadId'] : '';
+    $name = isset($_POST['name']) && $_POST['name'] !== '' ? $_POST['name'] : $f['name'];
+
+    if ($total > 1) {
+        if ($total > 40 || $index < 0 || $index >= $total || !preg_match('/^[a-f0-9]{32}$/', $uploadId)) {
+            fail('Neispravan dio slike.');
+        }
+        $chunkDir = DATA_DIR . '/chunks';
+        ensure_dir($chunkDir);
+        // Stari nedovršeni uploadi (> 1 h)
+        foreach (glob($chunkDir . '/*') as $old) {
+            if (is_file($old) && time() - filemtime($old) > 3600) {
+                @unlink($old);
+            }
+        }
+        if (!move_uploaded_file($f['tmp_name'], $chunkDir . '/' . $uploadId . '.' . $index)) {
+            fail('Snimanje dijela slike nije uspjelo.', 500);
+        }
+        if ($index < $total - 1) {
+            send_json(array('ok' => true, 'received' => $index + 1));
+        }
+        // Zadnji dio: spoji sve
+        $assembled = $chunkDir . '/' . $uploadId . '.all';
+        $out = fopen($assembled, 'wb');
+        $size = 0;
+        for ($i = 0; $i < $total; $i++) {
+            $part = $chunkDir . '/' . $uploadId . '.' . $i;
+            if (!is_file($part)) {
+                fclose($out);
+                @unlink($assembled);
+                fail('Nedostaje dio slike – pokušajte ponovo.');
+            }
+            $size += filesize($part);
+            fwrite($out, file_get_contents($part));
+            @unlink($part);
+        }
+        fclose($out);
+        $source = $assembled;
+    } else {
+        $size = $f['size'];
+        $source = $f['tmp_name'];
+    }
+
+    if ($size > 15 * 1024 * 1024) {
+        @unlink($source);
         fail('Slika je prevelika (najviše 15 MB).', 413);
     }
-    $info = @getimagesize($f['tmp_name']);
+    $info = @getimagesize($source);
     $types = array(IMAGETYPE_JPEG => 'jpg', IMAGETYPE_PNG => 'png', IMAGETYPE_GIF => 'gif');
     if (defined('IMAGETYPE_WEBP')) {
         $types[IMAGETYPE_WEBP] = 'webp';
     }
     if (!$info || !isset($types[$info[2]])) {
+        @unlink($source);
         fail('Dozvoljene su samo slike JPG, PNG, WebP i GIF.', 415);
     }
     if ($info[0] < 16 || $info[1] < 16 || $info[0] > 12000 || $info[1] > 16000) {
+        @unlink($source);
         fail('Neobične dimenzije slike (' . $info[0] . '×' . $info[1] . ' px).', 415);
     }
-    $base = slug_name(isset($_POST['name']) && $_POST['name'] !== '' ? $_POST['name'] : $f['name']);
-    $repoPath = 'public/uploads/' . date('Y/m') . '/' . $base . '-' . bin2hex(random_bytes(3)) . '.' . $types[$info[2]];
+    $repoPath = 'public/uploads/' . date('Y/m') . '/' . slug_name($name) . '-' . bin2hex(random_bytes(3)) . '.' . $types[$info[2]];
     $target = pending_dir() . '/' . $repoPath;
     ensure_dir(dirname($target));
-    if (!move_uploaded_file($f['tmp_name'], $target)) {
+    $moved = $total > 1 ? @rename($source, $target) : move_uploaded_file($source, $target);
+    if (!$moved) {
         fail('Snimanje slike nije uspjelo.', 500);
     }
     audit('slika', $repoPath);
@@ -234,7 +284,6 @@ if (isset($_POST['action']) && $_POST['action'] === 'upload') {
         'pending' => true,
     ));
 }
-
 $in = json_input();
 if (isset($in['action']) && $in['action'] === 'discard') {
     $path = isset($in['path']) ? (string) $in['path'] : '';
