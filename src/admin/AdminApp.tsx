@@ -194,32 +194,34 @@ function Shell({ session, onLogout, onTokenSaved }: { session: Session; onLogout
       {NAV.map((n) => {
         const active = n.match(route);
         return (
-          <a
-            key={n.href}
-            href={n.href}
-            aria-current={active ? "page" : undefined}
-            className={cx(
-              "flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-semibold transition",
-              active ? "bg-brand-500 text-white shadow-sm" : "text-slate-600 hover:bg-slate-100 hover:text-ink",
+          <div key={n.href}>
+            <a
+              href={n.href}
+              aria-current={active ? "page" : undefined}
+              className={cx(
+                "flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-semibold transition",
+                active ? "bg-brand-500 text-white shadow-sm" : "text-slate-600 hover:bg-slate-100 hover:text-ink",
+              )}
+            >
+              <n.icon className="size-5" aria-hidden /> {n.label}
+            </a>
+            {n.href === "#/stranice" && active && (
+              <div className="mb-1 ml-6 mt-1 flex flex-col gap-0.5 border-l border-slate-200 pl-3">
+                {pageDocs.map((d) => (
+                  <a
+                    key={d.id}
+                    href={`#/stranica/${d.id}`}
+                    aria-current={route[1] === d.id ? "page" : undefined}
+                    className={cx("rounded-lg px-2 py-1.5 text-sm", route[1] === d.id ? "font-bold text-brand-600" : "text-muted hover:text-ink")}
+                  >
+                    {d.title}
+                  </a>
+                ))}
+              </div>
             )}
-          >
-            <n.icon className="size-5" aria-hidden /> {n.label}
-          </a>
+          </div>
         );
       })}
-      {route[0] === "stranica" || route[0] === "stranice" ? (
-        <div className="ml-6 mt-1 flex flex-col gap-0.5 border-l border-slate-200 pl-3">
-          {pageDocs.map((d) => (
-            <a
-              key={d.id}
-              href={`#/stranica/${d.id}`}
-              className={cx("rounded-lg px-2 py-1.5 text-sm", route[1] === d.id ? "font-bold text-brand-600" : "text-muted hover:text-ink")}
-            >
-              {d.title}
-            </a>
-          ))}
-        </div>
-      ) : null}
       <div className="mt-auto space-y-1 border-t border-slate-100 pt-3">
         <a href="/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-100">
           <ExternalLink className="size-5" aria-hidden /> Otvori sajt

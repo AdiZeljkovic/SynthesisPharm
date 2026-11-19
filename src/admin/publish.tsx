@@ -40,6 +40,8 @@ export function PublishProvider({ children, enabled }: { children: ReactNode; en
     (commit: string) => {
       setExpected(commit);
       setTimeout(refresh, 4000);
+      // Ako GitHub ne pokrene objavu (npr. Actions isključen), ne prikazuj "Pokreće se…" zauvijek
+      setTimeout(() => setExpected((cur) => (cur === commit ? null : cur)), 10 * 60 * 1000);
     },
     [refresh],
   );
