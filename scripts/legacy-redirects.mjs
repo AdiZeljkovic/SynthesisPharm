@@ -16,6 +16,12 @@ const REDIRECTS = {
   "contact.html": "/kontakt/",
   "services-details.html": "/proizvodi/",
   "project-details.html": "/proizvodi/",
+  // Stari WordPress letci u podfolderima (obrisani sa servera 19.11.2026.)
+  "feroglobin2.html": "/proizvodi/feroglobin/letak/",
+  "feroglobin/index.html": "/proizvodi/feroglobin/letak/",
+  "feroglobin/feroglobin2.html": "/proizvodi/feroglobin/letak/",
+  "osteocare/index.html": "/proizvodi/osteocare/letak/",
+  "osteocare/osteocare2.html": "/proizvodi/osteocare/letak/",
 };
 
 const OUT = path.join(process.cwd(), "out");
@@ -23,6 +29,7 @@ let n = 0;
 for (const [file, target] of Object.entries(REDIRECTS)) {
   if (file === "index.html") continue; // index.html je prava početna stranica
   const html = `<!doctype html><html lang="bs"><head><meta charset="utf-8"><title>Preusmjeravanje…</title><meta name="robots" content="noindex"><link rel="canonical" href="${SITE}${target}"><meta http-equiv="refresh" content="0; url=${target}"><script>location.replace(${JSON.stringify(target)})</script></head><body><p>Stranica je premještena: <a href="${target}">${SITE}${target}</a></p></body></html>\n`;
+  fs.mkdirSync(path.dirname(path.join(OUT, file)), { recursive: true });
   fs.writeFileSync(path.join(OUT, file), html, "utf8");
   n++;
 }
