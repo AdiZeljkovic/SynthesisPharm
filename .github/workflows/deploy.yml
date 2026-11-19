@@ -54,9 +54,9 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # Plesk ima samopotpisani certifikat → šifrovana veza bez provjere certifikata
-          protocol: ftps
-          security: loose
+          # Običan FTP: firewall hostinga ne otvara pasivne portove za FTPS (data konekcija istekne),
+          # pa šifrovana veza ne radi ni iz FileZille ni odavde.
+          protocol: ftp
           local-dir: ./out/
           server-dir: ./httpdocs/
           # Ne dirati podatke admina na serveru (lozinka, token, sesije, slike na čekanju)
