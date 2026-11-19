@@ -23,8 +23,8 @@ define('DEFAULT_REPO', 'AdiZeljkovic/SynthesisPharm');
 define('DEFAULT_BRANCH', 'main');
 define('SESSION_IDLE', 7200);      // odjava nakon 2 h neaktivnosti
 define('SESSION_MAX', 43200);      // najduže 12 h
-define('CONTENT_PATH_RE', '#^src/content/(?:[a-z0-9-]+/)?[a-z0-9-]+\.(?:json|md)$#');
-define('IMAGE_EXT_RE', '#\.(?:jpe?g|png|webp|gif)$#i');
+define('CONTENT_PATH_RE', '#^src/content/(?:[a-z0-9-]+/)?[a-z0-9-]+\.(?:json|md)$#D');
+define('IMAGE_EXT_RE', '#\.(?:jpe?g|png|webp|gif)$#iD');
 
 class ApiError extends Exception
 {
@@ -102,12 +102,39 @@ function write_file($path, $content)
     if (file_put_contents($tmp, $content, LOCK_EX) === false) {
         throw new Exception('Upis nije uspio: ' . $path);
     }
-    if (file_exists($path)) {
-        @unlink($path); // Windows: rename ne prepisuje postojeći fajl
+    // PHP rename() na Windowsu zamjenjuje postojeći fajl (MOVEFILE_REPLACE_EXISTING), pa stari fajl
+    // nikad ne nestaje prije nego što je novi na mjestu. Ako ga drugi zahtjev upravo čita, pokušaj ponovo.
+    for ($i = 0; $i < 6; $i++) {
+        if (@rename($tmp, $path)) {
+            return;
+        }
+        usleep(50000);
     }
-    if (!@rename($tmp, $path)) {
-        @unlink($tmp);
-        throw new Exception('Upis nije uspio: ' . $path);
+    @unlink($tmp);
+    throw new Exception('Upis nije uspio: ' . $path);
+}
+
+/**
+ * Čitanje + izmjena + upis zaštićenog JSON-a pod ekskluzivnim zaključavanjem, da se paralelni zahtjevi
+ * (npr. više pokušaja prijave odjednom) ne preklope. $fn prima podatke po referenci i vraća rezultat.
+ */
+function locked_update($name, $fn)
+{
+    ensure_data_dir();
+    $lock = @fopen(DATA_DIR . '/' . $name . '.lock', 'c');
+    if ($lock) {
+        flock($lock, LOCK_EX);
+    }
+    try {
+        $data = read_guarded($name, array());
+        $result = $fn($data);
+        write_guarded($name, $data);
+        return $result;
+    } finally {
+        if ($lock) {
+            flock($lock, LOCK_UN);
+            fclose($lock);
+        }
     }
 }
 
@@ -157,9 +184,11 @@ function save_config($changes)
 function audit($event, $details = '')
 {
     try {
-        $log = read_guarded('log', array());
-        array_unshift($log, array('t' => date('c'), 'ip' => client_ip(), 'e' => $event, 'd' => $details));
-        write_guarded('log', array_slice($log, 0, 300));
+        $entry = array('t' => date('c'), 'ip' => client_ip(), 'e' => $event, 'd' => $details);
+        locked_update('log', function (&$log) use ($entry) {
+            array_unshift($log, $entry);
+            $log = array_slice($log, 0, 300);
+        });
     } catch (Exception $e) {
         error_log('[admin] audit: ' . $e->getMessage());
     }
@@ -168,6 +197,19 @@ function audit($event, $details = '')
 function client_ip()
 {
     return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0';
+}
+
+/** Ključ za ograničenje prijava: IPv4 adresa, a za IPv6 cijela /64 mreža (napadač ih ima neograničeno). */
+function client_key()
+{
+    $ip = client_ip();
+    if (strpos($ip, ':') !== false) {
+        $bin = @inet_pton($ip);
+        if ($bin !== false && strlen($bin) === 16) {
+            return bin2hex(substr($bin, 0, 8)) . '::/64';
+        }
+    }
+    return $ip;
 }
 
 function is_https()
@@ -265,6 +307,12 @@ function csrf_token()
 function bootstrap($requireAuth = true)
 {
     cors_for_dev();
+    // Lozinka i sesija samo preko HTTPS-a (izuzetak: lokalni razvoj)
+    $host = isset($_SERVER['HTTP_HOST']) ? strtolower($_SERVER['HTTP_HOST']) : '';
+    $local = preg_match('/^(localhost|127\.0\.0\.1)(:\d+)?$/D', $host) === 1;
+    if (!is_https() && !$local && config()['dev_origin'] === '') {
+        fail('Admin radi samo preko HTTPS-a.', 403);
+    }
     start_session();
     if ($requireAuth && !is_authenticated()) {
         fail('Niste prijavljeni.', 401);
@@ -286,61 +334,64 @@ function bootstrap($requireAuth = true)
 
 /* ───────────────────────── Ograničenje pokušaja prijave ───────────────────────── */
 
-function login_locked()
+/**
+ * Bilježi pokušaj prijave PRIJE provjere lozinke (pod zaključavanjem, pa paralelni zahtjevi ne mogu
+ * zaobići brojač). Vraća 0 ako je pokušaj dozvoljen, inače broj sekundi do otključavanja.
+ *  - 5 pokušaja u 15 min sa iste adrese (/64 za IPv6) → 15 min pauze
+ *  - 25 pokušaja na sat ukupno → 15 min pauze za sve, OSIM adresa s kojih je admin već uspješno ulazio
+ *    (da napadač ne može trajno zaključati pravog korisnika)
+ */
+function login_attempt()
 {
-    $rl = read_guarded('ratelimit', array());
-    $ip = client_ip();
-    $now = time();
-    if (isset($rl['ip'][$ip]['until']) && $rl['ip'][$ip]['until'] > $now) {
-        return $rl['ip'][$ip]['until'] - $now;
-    }
-    if (isset($rl['global']['until']) && $rl['global']['until'] > $now) {
-        return $rl['global']['until'] - $now;
-    }
-    return 0;
-}
-
-function login_failed()
-{
-    $rl = read_guarded('ratelimit', array());
-    $ip = client_ip();
-    $now = time();
-    $entry = isset($rl['ip'][$ip]) ? $rl['ip'][$ip] : array('fails' => 0, 'first' => $now, 'until' => 0);
-    if ($now - $entry['first'] > 900) {
-        $entry = array('fails' => 0, 'first' => $now, 'until' => 0);
-    }
-    $entry['fails']++;
-    if ($entry['fails'] >= 5) {
-        $entry['until'] = $now + 900;
-        $entry['fails'] = 0;
-        $entry['first'] = $now;
-    }
-    $rl['ip'][$ip] = $entry;
-    // Zaštita od napada sa više adresa: 25 pogrešnih unosa na sat → zaključaj prijavu na 15 min
-    $g = isset($rl['global']) ? $rl['global'] : array('fails' => 0, 'first' => $now, 'until' => 0);
-    if ($now - $g['first'] > 3600) {
-        $g = array('fails' => 0, 'first' => $now, 'until' => 0);
-    }
-    $g['fails']++;
-    if ($g['fails'] >= 25) {
-        $g = array('fails' => 0, 'first' => $now, 'until' => $now + 900);
-    }
-    $rl['global'] = $g;
-    foreach ($rl['ip'] as $k => $v) {
-        if ($v['until'] < $now && $now - $v['first'] > 3600) {
-            unset($rl['ip'][$k]);
+    $key = client_key();
+    return locked_update('ratelimit', function (&$rl) use ($key) {
+        $now = time();
+        $trusted = isset($rl['trusted'][$key]);
+        $entry = isset($rl['ip'][$key]) ? $rl['ip'][$key] : array('fails' => 0, 'first' => $now, 'until' => 0);
+        if ($entry['until'] > $now) {
+            return $entry['until'] - $now;
         }
-    }
-    write_guarded('ratelimit', $rl);
+        $g = isset($rl['global']) ? $rl['global'] : array('fails' => 0, 'first' => $now, 'until' => 0);
+        if (!$trusted && $g['until'] > $now) {
+            return $g['until'] - $now;
+        }
+        if ($now - $entry['first'] > 900) {
+            $entry = array('fails' => 0, 'first' => $now, 'until' => 0);
+        }
+        $entry['fails']++;
+        if ($entry['fails'] >= 5) {
+            $entry = array('fails' => 0, 'first' => $now, 'until' => $now + 900);
+        }
+        $rl['ip'][$key] = $entry;
+        if (!$trusted) {
+            if ($now - $g['first'] > 3600) {
+                $g = array('fails' => 0, 'first' => $now, 'until' => 0);
+            }
+            $g['fails']++;
+            if ($g['fails'] >= 25) {
+                $g = array('fails' => 0, 'first' => $now, 'until' => $now + 900);
+            }
+            $rl['global'] = $g;
+        }
+        foreach ($rl['ip'] as $k => $v) {
+            if ($v['until'] < $now && $now - $v['first'] > 3600) {
+                unset($rl['ip'][$k]);
+            }
+        }
+        return 0;
+    });
 }
 
 function login_succeeded()
 {
-    $rl = read_guarded('ratelimit', array());
-    unset($rl['ip'][client_ip()]);
-    write_guarded('ratelimit', $rl);
+    $key = client_key();
+    locked_update('ratelimit', function (&$rl) use ($key) {
+        unset($rl['ip'][$key]);
+        $rl['trusted'][$key] = time();
+        arsort($rl['trusted']);
+        $rl['trusted'] = array_slice($rl['trusted'], 0, 20, true);
+    });
 }
-
 /* ───────────────────────── GitHub API ───────────────────────── */
 
 function gh_headers($accept, $token = null)

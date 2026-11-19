@@ -78,13 +78,23 @@ if ($errors) {
     respond(422, array('status' => 'error', 'message' => 'Molimo ispravite označena polja.', 'errors' => $errors));
 }
 
-// Ograničenje broja poruka po IP adresi (fajl u temp folderu servera)
+// Ograničenje broja poruka po IP adresi. Fajlovi su u admin/_data (nedostupno s weba, nije dijeljeno
+// s drugim sajtovima na serveru); zaključavanje (flock) sprječava zaobilaženje paralelnim zahtjevima.
 $ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown';
-$rateFile = rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR . 'sp_contact_' . hash('sha256', $ip) . '.json';
+$rateDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . '_data' . DIRECTORY_SEPARATOR . 'kontakt';
+if (!is_dir($rateDir) && !@mkdir($rateDir, 0775, true)) {
+    $rateDir = rtrim(sys_get_temp_dir(), '/\\');
+    error_log('[kontakt] ne mogu napraviti ' . $rateDir . ', koristim temp folder');
+}
+$rateFile = $rateDir . DIRECTORY_SEPARATOR . 'rl_' . hash('sha256', $ip) . '.bin';
 $now = time();
-$hits = array();
-if (is_file($rateFile)) {
-    $decoded = json_decode((string) @file_get_contents($rateFile), true);
+$fh = @fopen($rateFile, 'c+');
+if ($fh === false) {
+    error_log('[kontakt] ograničenje slanja ne radi: ne mogu otvoriti ' . $rateFile);
+} else {
+    flock($fh, LOCK_EX);
+    $hits = array();
+    $decoded = json_decode((string) stream_get_contents($fh), true);
     if (is_array($decoded)) {
         foreach ($decoded as $t) {
             if (is_int($t) && $t > $now - RATE_WINDOW) {
@@ -92,12 +102,19 @@ if (is_file($rateFile)) {
             }
         }
     }
+    if (count($hits) >= RATE_LIMIT) {
+        flock($fh, LOCK_UN);
+        fclose($fh);
+        respond(429, array('status' => 'error', 'message' => 'Previše poruka u kratkom vremenu. Pokušajte ponovo za nekoliko minuta ili pišite na ' . RECIPIENT . '.'));
+    }
+    $hits[] = $now;
+    ftruncate($fh, 0);
+    rewind($fh);
+    fwrite($fh, json_encode($hits));
+    fflush($fh);
+    flock($fh, LOCK_UN);
+    fclose($fh);
 }
-if (count($hits) >= RATE_LIMIT) {
-    respond(429, array('status' => 'error', 'message' => 'Previše poruka u kratkom vremenu. Pokušajte ponovo za nekoliko minuta ili pišite na ' . RECIPIENT . '.'));
-}
-$hits[] = $now;
-@file_put_contents($rateFile, json_encode($hits), LOCK_EX);
 
 $subject = '[Web] ' . ($values['subject'] !== '' ? $values['subject'] : 'Nova poruka s web stranice');
 $body = implode("\r\n", array(
@@ -106,18 +123,19 @@ $body = implode("\r\n", array(
     'Telefon: ' . ($values['phone'] !== '' ? $values['phone'] : '—'),
     'Naslov: ' . ($values['subject'] !== '' ? $values['subject'] : '—'),
     '',
-    str_replace(array("\r\n", "\r"), "\n", $values['message']),
+    // SMTP traži CRLF; goli LF neki serveri odbijaju (zaštita od "SMTP smugglinga")
+    str_replace(array("\r\n", "\r", "\n"), array("\n", "\n", "\r\n"), $values['message']),
 ));
 $headers = implode("\r\n", array(
     'From: ' . encodeHeader('Synthesis Pharma web') . ' <' . FROM_ADDRESS . '>',
     'Reply-To: ' . encodeHeader($values['name']) . ' <' . $values['email'] . '>',
     'MIME-Version: 1.0',
     'Content-Type: text/plain; charset=UTF-8',
-    'Content-Transfer-Encoding: 8bit',
+    'Content-Transfer-Encoding: base64',
     'X-Mailer: SynthesisPharma-Web',
 ));
 
-$sent = @mail(RECIPIENT, encodeHeader($subject), $body, $headers);
+$sent = @mail(RECIPIENT, encodeHeader($subject), chunk_split(base64_encode($body)), $headers);
 
 if (!$sent) {
     error_log('[kontakt] mail() nije uspio za poruku od ' . $values['email']);

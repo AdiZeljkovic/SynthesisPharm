@@ -10,15 +10,35 @@ require __DIR__ . '/_lib.php';
 bootstrap(true);
 $cfg = config();
 
+/**
+ * Stvarna provjera tokena: čitanje repoa, pisanje (pravi bezopasan Git blob – ne mijenja ništa u repou
+ * i ne pokreće objavu) i čitanje GitHub Actions. Napomena: "permissions" iz GET /repos pokazuje prava
+ * korisnika, ne fine-grained tokena, pa se na to ne može osloniti.
+ */
+function check_token($cfg, $token)
+{
+    try {
+        gh('GET', '/repos/' . $cfg['repo'], null, false, $token);
+    } catch (ApiError $e) {
+        return array('ok' => false, 'message' => 'Token ne može pročitati repozitorij ' . $cfg['repo'] . '. Provjerite "Repository access".');
+    }
+    try {
+        gh('POST', '/repos/' . $cfg['repo'] . '/git/blobs', array('content' => 'provjera tokena', 'encoding' => 'utf-8'), false, $token);
+    } catch (ApiError $e) {
+        return array('ok' => false, 'message' => 'Token nema dozvolu za pisanje. U GitHubu uredite token: Repository permissions → Contents: Read and write.');
+    }
+    try {
+        gh('GET', '/repos/' . $cfg['repo'] . '/actions/runs?per_page=1', null, false, $token);
+    } catch (ApiError $e) {
+        return array('ok' => false, 'message' => 'Token nema dozvolu "Actions: Read-only" (potrebno za praćenje objave).');
+    }
+    return array('ok' => true, 'message' => 'Token radi (čitanje, pisanje i praćenje objave).');
+}
+
 if (method() === 'GET') {
     $check = null;
     if ($cfg['github_token'] !== '') {
-        try {
-            $repo = gh('GET', '/repos/' . $cfg['repo']);
-            $check = array('ok' => !empty($repo['permissions']['push']), 'message' => !empty($repo['permissions']['push']) ? 'Token radi.' : 'Token nema dozvolu za pisanje u repozitorij.');
-        } catch (ApiError $e) {
-            $check = array('ok' => false, 'message' => $e->getMessage());
-        }
+        $check = check_token($cfg, $cfg['github_token']);
     }
     $log = array_slice(read_guarded('log', array()), 0, 30);
     send_json(array(
@@ -56,14 +76,9 @@ if ($action === 'token') {
     if (!preg_match('/^(github_pat_|ghp_)[A-Za-z0-9_]{20,}$/', $token)) {
         fail('To ne izgleda kao GitHub token (počinje sa github_pat_ ili ghp_).');
     }
-    $repo = gh('GET', '/repos/' . $cfg['repo'], null, false, $token);
-    if (empty($repo['permissions']['push'])) {
-        fail('Token radi, ali nema dozvolu "Contents: Read and write" za ' . $cfg['repo'] . '.');
-    }
-    try {
-        gh('GET', '/repos/' . $cfg['repo'] . '/actions/runs?per_page=1', null, false, $token);
-    } catch (ApiError $e) {
-        fail('Token nema dozvolu "Actions: Read-only" (potrebno za praćenje objave).');
+    $check = check_token($cfg, $token);
+    if (!$check['ok']) {
+        fail($check['message']);
     }
     save_config(array('github_token' => $token));
     audit('novi GitHub token');

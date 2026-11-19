@@ -46,14 +46,13 @@ if ($action === 'login') {
     if ($cfg['password_hash'] === '') {
         fail('Admin još nije podešen (nema lozinke na serveru).', 503);
     }
-    $wait = login_locked();
+    $wait = login_attempt();
     if ($wait > 0) {
         fail('Previše neuspjelih pokušaja. Pokušajte ponovo za ' . max(1, (int) ceil($wait / 60)) . ' min.', 429);
     }
     $password = isset($in['password']) ? (string) $in['password'] : '';
     usleep(300000); // usporava pogađanje
     if ($password === '' || strlen($password) > 200 || !password_verify($password, $cfg['password_hash'])) {
-        login_failed();
         audit('neuspjela prijava');
         fail('Pogrešna lozinka.', 401);
     }

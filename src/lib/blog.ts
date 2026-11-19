@@ -3,6 +3,7 @@ import path from "node:path";
 import matter from "gray-matter";
 import { Marked, Renderer } from "marked";
 import { slugify, type PostMeta } from "./blog-utils";
+import { escapeRawHtml, sanitizeTokens } from "./markdown-safety";
 
 export { formatDate, slugify, type PostMeta } from "./blog-utils";
 
@@ -39,7 +40,8 @@ function render(markdown: string) {
     const srcset = [640, 1080, 1600].map((w) => `${v(w)} ${w}w`).join(", ");
     return `<img src="${esc(v(1080))}" srcset="${esc(srcset)}" sizes="(min-width: 1024px) 760px, 100vw" alt="${esc(text)}"${titleAttr} loading="lazy" decoding="async">`;
   };
-  const html = new Marked({ renderer, gfm: true }).parse(markdown, { async: false });
+  renderer.html = escapeRawHtml;
+  const html = new Marked({ renderer, gfm: true, walkTokens: sanitizeTokens }).parse(markdown, { async: false });
   return { html, headings };
 }
 

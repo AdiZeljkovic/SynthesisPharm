@@ -1,11 +1,15 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import { marked } from "marked";
+import { Marked } from "marked";
+import { escapeRawHtml, sanitizeTokens } from "@/lib/markdown-safety";
 import { Bold, Heading2, Heading3, ImagePlus, Italic, Link2, List, ListOrdered, Minus, Quote } from "lucide-react";
 import { api } from "./api";
 import { MediaPicker } from "./media";
 import { cx } from "./ui";
+
+// Isto čišćenje kao na sajtu: sirovi HTML kao tekst, samo sigurni linkovi
+const previewMarked = new Marked({ gfm: true, walkTokens: sanitizeTokens, renderer: { html: escapeRawHtml } });
 
 const TOOLS = [
   { id: "h2", icon: <Heading2 className="size-4" />, label: "Podnaslov" },
@@ -64,7 +68,7 @@ export function MarkdownEditor({ value, onChange }: { value: string; onChange: (
 
   const html = useMemo(() => {
     if (tab !== "preview") return "";
-    const out = marked.parse(value, { async: false, gfm: true }) as string;
+    const out = previewMarked.parse(value, { async: false }) as string;
     // Slike iz admina prikaži preko API-ja (nove slike još nisu na sajtu)
     return out.replace(/src="(\/(?:uploads|images)\/[^"]+)"/g, (_, p: string) => `src="${api.imgUrl(p, 1200)}"`);
   }, [tab, value]);

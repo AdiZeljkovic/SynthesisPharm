@@ -1,5 +1,5 @@
 // Pravi male HTML stranice na starim adresama (about-2.html …) koje odmah preusmjeravaju na nove.
-// IIS bez URL Rewrite modula ne može raditi 301 preusmjerenja iz web.config-a, pa ovo radi svuda:
+// Glavno su 301 pravila koja se upisuju u out/web.config (URL Rewrite); ove stranice su rezerva:
 // meta refresh (Google ga tretira kao trajno preusmjerenje) + canonical + JS za trenutni prelaz.
 import fs from "node:fs";
 import path from "node:path";
@@ -33,4 +33,16 @@ for (const [file, target] of Object.entries(REDIRECTS)) {
   fs.writeFileSync(path.join(OUT, file), html, "utf8");
   n++;
 }
-console.log(`legacy-redirects: ${n} preusmjerenja`);
+// Prava 301 preusmjerenja: upiši mapu u out/web.config (URL Rewrite na serveru)
+const wcPath = path.join(OUT, "web.config");
+const wc = fs.readFileSync(wcPath, "utf8");
+const entries = Object.entries(REDIRECTS)
+  .filter(([file]) => file !== "index.html")
+  .flatMap(([file, target]) => {
+    const urls = ["/" + file];
+    if (file.endsWith("/index.html")) urls.push("/" + file.slice(0, -"index.html".length));
+    return urls.map((u) => `<add key="${u}" value="${target}" />`);
+  });
+if (!wc.includes("<!--STARE-ADRESE-->")) throw new Error("web.config nema <!--STARE-ADRESE--> oznaku");
+fs.writeFileSync(wcPath, wc.replace("<!--STARE-ADRESE-->", entries.join("\n          ")));
+console.log(`legacy-redirects: ${n} preusmjerenja (stranice + ${entries.length} pravila 301 u web.config)`);

@@ -13,7 +13,7 @@ require __DIR__ . '/_lib.php';
 bootstrap(true);
 $cfg = config();
 
-define('SITE_IMG_RE', '#^/(?:images|uploads|video)/[A-Za-z0-9/_.-]+\.(?:jpe?g|png|webp|gif)$#i');
+define('SITE_IMG_RE', '#^/(?:images|uploads|video)/[A-Za-z0-9/_.-]+\.(?:jpe?g|png|webp|gif)$#iD');
 define('THUMB_WIDTHS', '160,400,1200');
 
 /** Stablo repozitorija (putanja → sha) za slike, keširano 60 s. */
@@ -212,16 +212,21 @@ if (isset($_POST['action']) && $_POST['action'] === 'upload') {
     $name = isset($_POST['name']) && $_POST['name'] !== '' ? $_POST['name'] : $f['name'];
 
     if ($total > 1) {
-        if ($total > 40 || $index < 0 || $index >= $total || !preg_match('/^[a-f0-9]{32}$/', $uploadId)) {
+        // Najviše 30 dijelova od 512 KB (= 15 MB); dio ne smije biti veći od 600 KB
+        if ($total > 30 || $index < 0 || $index >= $total || $f['size'] > 600 * 1024 || !preg_match('/^[a-f0-9]{32}$/D', $uploadId)) {
             fail('Neispravan dio slike.');
         }
         $chunkDir = DATA_DIR . '/chunks';
         ensure_dir($chunkDir);
-        // Stari nedovršeni uploadi (> 1 h)
-        foreach (glob($chunkDir . '/*') as $old) {
+        // Stari nedovršeni uploadi (> 1 h) i ograničenje ukupnog broja dijelova na disku
+        $existing = glob($chunkDir . '/*');
+        foreach ($existing as $old) {
             if (is_file($old) && time() - filemtime($old) > 3600) {
                 @unlink($old);
             }
+        }
+        if (count(glob($chunkDir . '/*')) > 200) {
+            fail('Previše nedovršenih otpremanja. Pokušajte ponovo za sat vremena.', 429);
         }
         if (!move_uploaded_file($f['tmp_name'], $chunkDir . '/' . $uploadId . '.' . $index)) {
             fail('Snimanje dijela slike nije uspjelo.', 500);
@@ -287,7 +292,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'upload') {
 $in = json_input();
 if (isset($in['action']) && $in['action'] === 'discard') {
     $path = isset($in['path']) ? (string) $in['path'] : '';
-    if (!preg_match('#^/uploads/[A-Za-z0-9/_.-]+$#', $path) || strpos($path, '..') !== false) {
+    if (!preg_match('#^/uploads/[A-Za-z0-9/_.-]+$#D', $path) || strpos($path, '..') !== false) {
         fail('Neispravna putanja.');
     }
     $file = pending_dir() . '/public' . $path;

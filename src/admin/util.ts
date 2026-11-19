@@ -82,7 +82,9 @@ export async function prepareImage(file: File): Promise<{ blob: Blob; name: stri
   }
   const scale = Math.min(1, MAX_SIDE / Math.max(bmp.width, bmp.height));
   const isPng = file.type === "image/png";
-  if (scale === 1 && file.size < 1.5 * 1024 * 1024) {
+  const isJpeg = file.type === "image/jpeg";
+  // JPEG se uvijek ponovo snima: uklanja EXIF (lokacija GPS, model telefona) prije objave
+  if (scale === 1 && !isJpeg && file.size < 1.5 * 1024 * 1024) {
     bmp.close();
     return { blob: file, name: file.name };
   }
@@ -95,7 +97,9 @@ export async function prepareImage(file: File): Promise<{ blob: Blob; name: stri
   bmp.close();
   const type = isPng ? "image/png" : "image/jpeg";
   const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, type, 0.86));
-  if (!blob || blob.size >= file.size) return { blob: file, name: file.name };
+  if (!blob) return { blob: file, name: file.name };
+  // Original zadržavamo samo ako nije JPEG (EXIF) i ponovno snimanje ne bi ništa smanjilo
+  if (!isJpeg && blob.size >= file.size) return { blob: file, name: file.name };
   return { blob, name: `${base}.${isPng ? "png" : "jpg"}` };
 }
 
