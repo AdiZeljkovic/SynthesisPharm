@@ -4,11 +4,14 @@ import { CtaBanner } from "@/components/CtaBanner";
 import { ProductCatalog } from "@/components/ProductCatalog";
 import { Container, PageHero } from "@/components/ui";
 import { brands } from "@/lib/brands";
+import { pages } from "@/lib/pages";
 import { products, productsByBrand } from "@/lib/products";
 
+const c = pages.proizvodi;
+
 export const metadata: Metadata = pageMetadata({
-  title: "Proizvodi",
-  description: "Dodaci prehrani Vitabiotics – pregled proizvoda iz ponude Synthesis Pharme.",
+  title: c.seo.title || "Proizvodi",
+  description: c.seo.description,
   path: "/proizvodi",
 });
 
@@ -20,10 +23,10 @@ export default function ProductsPage() {
   return (
     <>
       <PageHero
-        title="Proizvodi"
-        subtitle="Vrhunska ponuda dodataka prehrani renomiranih evropskih brendova."
-        image="/images/banners/proizvodi.jpg"
-        crumbs={[{ href: "/", label: "Početna" }, { label: "Proizvodi" }]}
+        title={c.hero.title}
+        subtitle={c.hero.subtitle}
+        image={c.hero.image}
+        crumbs={[{ href: "/", label: "Početna" }, { label: c.hero.title }]}
       />
       <section className="bg-surface py-16">
         <Container>

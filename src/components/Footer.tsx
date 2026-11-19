@@ -21,10 +21,7 @@ export function Footer() {
           <div className="inline-block rounded-2xl bg-white px-5 py-4">
             <Image src="/images/brand/logo.png" alt="Synthesis Pharma" width={401} height={173} className="h-12 w-auto" />
           </div>
-          <p className="mt-6 max-w-sm leading-relaxed text-brand-100/80">
-            Pouzdan partner evropskim farmaceutskim kompanijama na tržištu Bosne i Hercegovine – od registracije
-            proizvoda do promocije i prodaje.
-          </p>
+          <p className="mt-6 max-w-sm leading-relaxed text-brand-100/80">{site.footerText}</p>
           <SocialLinks
             className="mt-6"
             itemClassName="grid size-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-leaf-600"

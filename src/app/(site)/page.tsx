@@ -8,24 +8,29 @@ import { PostCard } from "@/components/blog";
 import { CtaBanner } from "@/components/CtaBanner";
 import { HeroVideo } from "@/components/HeroVideo";
 import { Reveal } from "@/components/Reveal";
+import { RichText } from "@/components/RichText";
 import { SplitWords } from "@/components/SplitWords";
 import { Stats } from "@/components/Stats";
 import { ButtonLink, Container, Eyebrow, SectionHeading } from "@/components/ui";
 import { getPosts } from "@/lib/blog";
 import { brandTheme, brands, getBrand } from "@/lib/brands";
+import { pages, paragraphs } from "@/lib/pages";
 import { featuredProducts, leafletProducts } from "@/lib/products";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
+const c = pages.pocetna;
+
 export const metadata: Metadata = pageMetadata({
-  title: "Synthesis Pharma – pouzdan partner za tržište BiH",
-  description: site.description,
+  title: c.seo.title || "Synthesis Pharma – pouzdan partner za tržište BiH",
+  description: c.seo.description || site.description,
   path: "/",
   absoluteTitle: true,
 });
 
 export default async function Home() {
   const latestPosts = (await getPosts()).slice(0, 3);
+  const titleWords = c.hero.title.split(/\s+/).filter(Boolean).length;
 
   return (
     <>
@@ -40,17 +45,16 @@ export default async function Home() {
         <Container className="w-full py-24">
           <div className="hero-fade max-w-2xl">
             <div className="animate-fade-up">
-              <Eyebrow light>Synthesis Pharma · Sarajevo</Eyebrow>
+              <Eyebrow light>{c.hero.eyebrow}</Eyebrow>
             </div>
             <h1 className="split-load mt-6 text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-6xl">
-              <SplitWords text="Pouzdan partner za" />{" "}
+              <SplitWords text={c.hero.title} />{" "}
               <span className="text-leaf-400">
-                <SplitWords text="tržište BiH" offset={3} />
+                <SplitWords text={c.hero.titleHighlight} offset={titleWords} />
               </span>
             </h1>
             <p className="mt-6 max-w-xl animate-fade-up text-lg leading-relaxed text-white/85 [animation-delay:450ms] sm:text-xl">
-              Zajedno s veledrogerijom Hercegovinalijek, renomiranim evropskim farmaceutskim kompanijama pružamo
-              marketinške i prodajne usluge – od istraživanja tržišta do promocije proizvoda.
+              {c.hero.text}
             </p>
             <div className="mt-10 flex animate-fade-up flex-wrap gap-4 [animation-delay:600ms]">
               <ButtonLink href="/brendovi">Naši brendovi</ButtonLink>
@@ -91,109 +95,108 @@ export default async function Home() {
       <section id="o-nama" className="scroll-mt-24 py-24">
         <Container className="grid items-center gap-16 lg:grid-cols-2">
           <Reveal>
-            <SectionHeading eyebrow="O nama" title="Pouzdan partner za tržište Bosne i Hercegovine">
-              <p>
-                Synthesis Pharma, zajedno s veledrogerijom Hercegovinalijek, razvija partnerstvo s renomiranim
-                evropskim farmaceutskim kompanijama kojima pruža marketinške i prodajne usluge, uključujući
-                istraživanje tržišta, registraciju proizvoda, provođenje promotivnih aktivnosti te administrativne
-                usluge prema njihovim potrebama.
-              </p>
-              <p className="mt-4 text-base">
-                Krajnji cilj svih aktivnosti je približiti naše proizvode što većem broju korisnika i učiniti
-                kvalitetnu zdravstvenu zaštitu dostupnom svima u Bosni i Hercegovini.
-              </p>
+            <SectionHeading eyebrow={c.about.eyebrow} title={c.about.title}>
+              {paragraphs(c.about.paragraphs).map((p, i) => (
+                <p key={i} className={i > 0 ? "mt-4 text-base" : undefined}>
+                  <RichText text={p} />
+                </p>
+              ))}
             </SectionHeading>
             <div className="mt-10">
-              <AboutTabs />
+              <AboutTabs tabs={pages.oNama.tabs} />
             </div>
           </Reveal>
 
           <div className="relative">
             <Reveal variant="clip" className="relative aspect-[4/5] overflow-hidden rounded-[2rem]">
               <Image
-                src="/images/about/farmaceut.jpg"
-                alt="Farmaceut slaže proizvode na police u skladištu Synthesis Pharme"
+                src={c.about.image}
+                alt={c.about.imageAlt}
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
             </Reveal>
-            <Reveal
-              delay={700}
-              className="absolute -bottom-8 left-6 right-6 flex items-center gap-4 rounded-2xl bg-white p-5 shadow-[0_24px_60px_-20px_rgba(6,46,59,0.35)] sm:left-auto sm:right-[-1.5rem] sm:w-80"
-            >
-              <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-leaf-50 text-leaf-600">
-                <Building2 className="size-6" aria-hidden />
-              </span>
-              <p className="text-sm leading-snug text-muted">
-                U partnerstvu s veledrogerijom <strong className="text-ink">Hercegovinalijek</strong>
-              </p>
-            </Reveal>
+            {c.about.badge && (
+              <Reveal
+                delay={700}
+                className="absolute -bottom-8 left-6 right-6 flex items-center gap-4 rounded-2xl bg-white p-5 shadow-[0_24px_60px_-20px_rgba(6,46,59,0.35)] sm:left-auto sm:right-[-1.5rem] sm:w-80"
+              >
+                <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-leaf-50 text-leaf-600">
+                  <Building2 className="size-6" aria-hidden />
+                </span>
+                <p className="text-sm leading-snug text-muted">
+                  <RichText text={c.about.badge} />
+                </p>
+              </Reveal>
+            )}
           </div>
         </Container>
       </section>
 
       {/* ───────── Izdvojeni proizvodi ───────── */}
-      <section className="bg-surface py-24">
-        <Container>
-          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-            <SectionHeading eyebrow="Izdvojeni proizvodi" title="Šta nudimo?">
-              Za vas smo odabrali vrhunsku ponudu mliječnih formula za dojenčad, dodataka prehrani, medicinskih proizvoda te
-              proizvoda za samoliječenje.
-            </SectionHeading>
-            <ButtonLink href="/proizvodi" variant="outline">
-              Svi proizvodi
-            </ButtonLink>
-          </div>
+      {featuredProducts.length > 0 && (
+        <section className="bg-surface py-24">
+          <Container>
+            <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+              <SectionHeading eyebrow={c.featured.eyebrow} title={c.featured.title}>
+                {c.featured.text}
+              </SectionHeading>
+              <ButtonLink href="/proizvodi" variant="outline">
+                Svi proizvodi
+              </ButtonLink>
+            </div>
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredProducts.map((p, i) => (
-              <Reveal key={p.slug} delay={(i % 3) * 100} className={i === 0 ? "lg:row-span-2" : ""}>
-                <Link
-                  href={`/proizvodi/${p.slug}`}
-                  data-spotlight
-                  className="group flex h-full flex-col overflow-hidden rounded-3xl bg-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-20px_rgba(6,46,59,0.25)]"
-                >
-                  <ViewTransition name={`product-${p.slug}`} share="morph" default="none">
-                    <div className={`relative overflow-hidden ${i === 0 ? "aspect-[4/3] lg:aspect-auto lg:flex-1" : "aspect-[9/5]"}`}>
-                      <Image
-                        src={p.photo!}
-                        alt={p.name}
-                        fill
-                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                        className={`transition duration-500 group-hover:scale-105 ${i === 0 ? "object-cover" : "object-contain"}`}
-                      />
+            <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {featuredProducts.map((p, i) => (
+                <Reveal key={p.slug} delay={(i % 3) * 100} className={i === 0 ? "lg:row-span-2" : ""}>
+                  <Link
+                    href={`/proizvodi/${p.slug}`}
+                    data-spotlight
+                    className="group flex h-full flex-col overflow-hidden rounded-3xl bg-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-20px_rgba(6,46,59,0.25)]"
+                  >
+                    <ViewTransition name={`product-${p.slug}`} share="morph" default="none">
+                      <div className={`relative overflow-hidden ${i === 0 ? "aspect-[4/3] lg:aspect-auto lg:flex-1" : "aspect-[9/5]"}`}>
+                        <Image
+                          src={p.photo ?? p.image}
+                          alt={p.name}
+                          fill
+                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                          className={`transition duration-500 group-hover:scale-105 ${i === 0 ? "object-cover" : "object-contain"}`}
+                        />
+                      </div>
+                    </ViewTransition>
+                    <div className="p-6">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold uppercase tracking-[0.18em] text-brand-600">
+                          {getBrand(p.brand)?.name}
+                        </span>
+                        <ArrowUpRight className="size-5 text-muted transition group-hover:text-brand-600" aria-hidden />
+                      </div>
+                      <h3 className="mt-2 text-xl font-extrabold text-ink">{p.name}</h3>
+                      <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">{p.description}</p>
                     </div>
-                  </ViewTransition>
-                  <div className="p-6">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold uppercase tracking-[0.18em] text-brand-600">
-                        {getBrand(p.brand)?.name}
-                      </span>
-                      <ArrowUpRight className="size-5 text-muted transition group-hover:text-brand-600" aria-hidden />
-                    </div>
-                    <h3 className="mt-2 text-xl font-extrabold text-ink">{p.name}</h3>
-                    <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">{p.description}</p>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </section>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
 
       {/* ───────── Brendovi ───────── */}
       <section className="relative py-24">
         <Container className="grid gap-16 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-32">
-              <SectionHeading eyebrow="Brendovi" title="Kompanije s kojima sarađujemo">
-                Ovakva saradnja donosi vrhunske rezultate – naše aktivnosti medicinskog marketinga prilagođavamo
-                potrebama svake pojedine farmaceutske kompanije.
+              <SectionHeading eyebrow={c.brands.eyebrow} title={c.brands.title}>
+                {c.brands.text}
               </SectionHeading>
-              <Reveal variant="clip" className="relative mt-10 hidden aspect-[3/2] overflow-hidden rounded-[2rem] lg:block">
-                <Image src="/images/about/core-bg.jpg" alt="" fill sizes="40vw" className="object-cover" />
-              </Reveal>
+              {c.brands.image && (
+                <Reveal variant="clip" className="relative mt-10 hidden aspect-[3/2] overflow-hidden rounded-[2rem] lg:block">
+                  <Image src={c.brands.image} alt="" fill sizes="40vw" className="object-cover" />
+                </Reveal>
+              )}
             </div>
           </div>
           <div className="grid gap-5 lg:col-span-7">
@@ -229,8 +232,8 @@ export default async function Home() {
       {/* ───────── Edukativni letci ───────── */}
       <section className="bg-surface py-20">
         <Container>
-          <SectionHeading eyebrow="Edukativni materijali" title="Letci za naše proizvode" center>
-            Detaljne informacije o sastavu, djelovanju i preporučenoj upotrebi.
+          <SectionHeading eyebrow={c.leaflets.eyebrow} title={c.leaflets.title} center>
+            {c.leaflets.text}
           </SectionHeading>
           <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
             {leafletProducts.map((p) => (
@@ -241,7 +244,7 @@ export default async function Home() {
                 className="group flex flex-col items-center gap-4 rounded-3xl bg-white p-6 text-center transition hover:-translate-y-1 hover:shadow-[0_24px_50px_-20px_rgba(6,46,59,0.25)]"
               >
                 <div className="relative h-14 w-full">
-                  <Image src={p.logo!} alt={p.name} fill sizes="240px" className="object-contain" />
+                  <Image src={p.logo ?? p.image} alt={p.name} fill sizes="240px" className="object-contain" />
                 </div>
                 <span className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-600">
                   <FileText className="size-4" aria-hidden /> Pogledaj letak
@@ -254,15 +257,11 @@ export default async function Home() {
 
       {/* ───────── Brojke ───────── */}
       <section className="relative isolate overflow-hidden bg-brand-950 py-24">
-        <Image
-          src="/images/about/team-2.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          className="-z-10 object-cover opacity-20"
-        />
+        {c.stats.image && (
+          <Image src={c.stats.image} alt="" fill sizes="100vw" className="-z-10 object-cover opacity-20" />
+        )}
         <Container>
-          <SectionHeading eyebrow="U brojkama" title="Rezultati koji govore" center light />
+          <SectionHeading eyebrow={c.stats.eyebrow} title={c.stats.title} center light />
           <div className="mt-14">
             <Stats light />
           </div>
@@ -274,7 +273,7 @@ export default async function Home() {
         <section className="py-24">
           <Container>
             <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-              <SectionHeading eyebrow="Blog" title="Najnovije sa bloga" />
+              <SectionHeading eyebrow={c.blog.eyebrow} title={c.blog.title} />
               <ButtonLink href="/blog" variant="outline">
                 Svi tekstovi
               </ButtonLink>
@@ -291,6 +290,7 @@ export default async function Home() {
         </section>
       )}
 
-      <CtaBanner />    </>
+      <CtaBanner />
+    </>
   );
 }

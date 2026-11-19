@@ -1,0 +1,26 @@
+{
+  "name": "Synthesis Pharma",
+  "description": "Synthesis Pharma, zajedno s veledrogerijom Hercegovinalijek, pruža marketinške i prodajne usluge renomiranim evropskim farmaceutskim kompanijama na tržištu Bosne i Hercegovine.",
+  "email": "info@synthesispharma.ba",
+  "phone": "+387 33 568 372",
+  "address": {
+    "street": "Rajlovačka cesta 23",
+    "city": "71000 Sarajevo",
+    "country": "Bosna i Hercegovina"
+  },
+  "hours": "Ponedjeljak – petak, 08:00 – 16:00",
+  "social": {
+    "facebook": "https://www.facebook.com/synthesispharmasarajevo/",
+    "linkedin": "https://www.linkedin.com/company/synthesis-pharma/"
+  },
+  "stats": [
+    { "value": 8, "label": "Saradnika" },
+    { "value": 177, "label": "Proizvoda" },
+    { "value": 1037, "label": "Sretnih kupaca" }
+  ],
+  "footerText": "Pouzdan partner evropskim farmaceutskim kompanijama na tržištu Bosne i Hercegovine – od registracije proizvoda do promocije i prodaje.",
+  "cta": {
+    "title": "Tražite pouzdanog partnera za tržište BiH?",
+    "text": "Javite nam se – rado ćemo predstaviti kako možemo pozicionirati vaše proizvode."
+  }
+}

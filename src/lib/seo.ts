@@ -71,6 +71,8 @@ export function metaDescription(text: string, max = 155) {
 
 /** Organizacija + web stranica (schema.org) – ide na svaku stranicu kroz layout. */
 export function organizationLd() {
+  // "71000 Sarajevo" → poštanski broj + mjesto
+  const [, postalCode = "", locality = site.address.city] = site.address.city.match(/^(\d{5})\s+(.+)$/) ?? [];
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -83,12 +85,12 @@ export function organizationLd() {
         image: `${site.url}${DEFAULT_OG_IMAGE.url}`,
         description: site.description,
         email: site.email,
-        telephone: "+387 33 568 372",
+        telephone: site.phone,
         address: {
           "@type": "PostalAddress",
           streetAddress: site.address.street,
-          postalCode: "71000",
-          addressLocality: "Sarajevo",
+          ...(postalCode ? { postalCode } : {}),
+          addressLocality: locality,
           addressCountry: "BA",
         },
         openingHoursSpecification: [
@@ -99,7 +101,7 @@ export function organizationLd() {
             closes: "16:00",
           },
         ],
-        sameAs: [site.social.facebook, site.social.linkedin],
+        sameAs: [site.social.facebook, site.social.linkedin].filter(Boolean),
       },
       {
         "@type": "WebSite",

@@ -1,0 +1,49 @@
+{
+  "seo": {
+    "title": "Synthesis Pharma – pouzdan partner za tržište BiH",
+    "description": "Synthesis Pharma, zajedno s veledrogerijom Hercegovinalijek, pruža marketinške i prodajne usluge renomiranim evropskim farmaceutskim kompanijama na tržištu Bosne i Hercegovine."
+  },
+  "hero": {
+    "eyebrow": "Synthesis Pharma · Sarajevo",
+    "title": "Pouzdan partner za",
+    "titleHighlight": "tržište BiH",
+    "text": "Zajedno s veledrogerijom Hercegovinalijek, renomiranim evropskim farmaceutskim kompanijama pružamo marketinške i prodajne usluge – od istraživanja tržišta do promocije proizvoda."
+  },
+  "about": {
+    "eyebrow": "O nama",
+    "title": "Pouzdan partner za tržište Bosne i Hercegovine",
+    "paragraphs": [
+      "Synthesis Pharma, zajedno s veledrogerijom Hercegovinalijek, razvija partnerstvo s renomiranim evropskim farmaceutskim kompanijama kojima pruža marketinške i prodajne usluge, uključujući istraživanje tržišta, registraciju proizvoda, provođenje promotivnih aktivnosti te administrativne usluge prema njihovim potrebama.",
+      "Krajnji cilj svih aktivnosti je približiti naše proizvode što većem broju korisnika i učiniti kvalitetnu zdravstvenu zaštitu dostupnom svima u Bosni i Hercegovini."
+    ],
+    "image": "/images/about/farmaceut.jpg",
+    "imageAlt": "Farmaceut slaže proizvode na police u skladištu Synthesis Pharme",
+    "badge": "U partnerstvu s veledrogerijom **Hercegovinalijek**"
+  },
+  "featured": {
+    "eyebrow": "Izdvojeni proizvodi",
+    "title": "Šta nudimo?",
+    "text": "Za vas smo odabrali vrhunsku ponudu mliječnih formula za dojenčad, dodataka prehrani, medicinskih proizvoda te proizvoda za samoliječenje.",
+    "products": ["feroglobin", "osteocare", "jointace", "neurozan", "liverel"]
+  },
+  "brands": {
+    "eyebrow": "Brendovi",
+    "title": "Kompanije s kojima sarađujemo",
+    "text": "Ovakva saradnja donosi vrhunske rezultate – naše aktivnosti medicinskog marketinga prilagođavamo potrebama svake pojedine farmaceutske kompanije.",
+    "image": "/images/about/core-bg.jpg"
+  },
+  "leaflets": {
+    "eyebrow": "Edukativni materijali",
+    "title": "Letci za naše proizvode",
+    "text": "Detaljne informacije o sastavu, djelovanju i preporučenoj upotrebi."
+  },
+  "stats": {
+    "eyebrow": "U brojkama",
+    "title": "Rezultati koji govore",
+    "image": "/images/about/team-2.jpg"
+  },
+  "blog": {
+    "eyebrow": "Blog",
+    "title": "Najnovije sa bloga"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "seo": {
+    "title": "O nama",
+    "description": "Synthesis Pharma, zajedno s veledrogerijom Hercegovinalijek, razvija partnerstvo s renomiranim evropskim farmaceutskim kompanijama na tržištu BiH."
+  },
+  "hero": {
+    "title": "O nama",
+    "subtitle": "Pouzdan partner evropskim farmaceutskim kompanijama na tržištu Bosne i Hercegovine.",
+    "image": "/images/about/team-2.jpg"
+  },
+  "intro": {
+    "eyebrow": "Ko smo",
+    "title": "Pouzdan partner za tržište BiH",
+    "paragraphs": [
+      "Synthesis Pharma, zajedno s veledrogerijom Hercegovinalijek, razvija partnerstvo s renomiranim evropskim farmaceutskim kompanijama kojima pruža marketinške i prodajne usluge, uključujući istraživanje tržišta, registraciju proizvoda, provođenje promotivnih aktivnosti te administrativne usluge prema njihovim potrebama.",
+      "Naše aktivnosti medicinskog marketinga prilagođavamo potrebama svake pojedine farmaceutske kompanije kako bismo ih što bolje pozicionirali na tržištu Bosne i Hercegovine. Krajnji cilj svih aktivnosti je približiti naše proizvode što većem broju korisnika i učiniti kvalitetnu zdravstvenu zaštitu dostupnom svim korisnicima u Bosni i Hercegovini.",
+      "Ovakva saradnja donosi vrhunske rezultate, što pokazuje i uspješna saradnja s brendovima kao što su Bayer Consumer Health, Vitabiotics, Recordati i Nestlé NAN."
+    ],
+    "image1": "/images/about/farmaceut.jpg",
+    "image1Alt": "Farmaceut slaže proizvode na police u skladištu",
+    "image2": "/images/about/team-2.jpg",
+    "image2Alt": "Visokoregalno skladište veledrogerije"
+  },
+  "tabs": [
+    {
+      "label": "Ciljevi",
+      "items": [
+        "Približiti naše proizvode što većem broju korisnika",
+        "Kvalitetna zdravstvena zaštita dostupna svima",
+        "Saradnja sa renomiranim globalnim brendovima"
+      ]
+    },
+    {
+      "label": "Proizvodi",
+      "items": ["Lijekovi", "Dodaci prehrani", "Medicinska sredstva", "Mliječne formule za dojenčad"]
+    },
+    {
+      "label": "Brendovi",
+      "items": ["Recordati", "Bayer Consumer Health", "Vitabiotics", "Nestlé NAN"]
+    }
+  ],
+  "services": {
+    "eyebrow": "Šta radimo",
+    "title": "Usluge za naše partnere",
+    "text": "Kompletna podrška farmaceutskim kompanijama – od prvog koraka na tržištu do proizvoda na policama apoteka.",
+    "items": [
+      {
+        "icon": "istrazivanje",
+        "title": "Istraživanje tržišta",
+        "text": "Analiza tržišta Bosne i Hercegovine i prilika za pozicioniranje svakog proizvoda."
+      },
+      {
+        "icon": "registracija",
+        "title": "Registracija proizvoda",
+        "text": "Priprema i vođenje postupka registracije proizvoda u skladu s domaćim propisima."
+      },
+      {
+        "icon": "promocija",
+        "title": "Promotivne aktivnosti",
+        "text": "Aktivnosti medicinskog marketinga prilagođene potrebama svake farmaceutske kompanije."
+      },
+      {
+        "icon": "zdravstvo",
+        "title": "Administrativne usluge",
+        "text": "Administrativna podrška partnerima prema njihovim potrebama, uz distribuciju preko Hercegovinalijeka."
+      }
+    ]
+  },
+  "values": {
+    "eyebrow": "Naše vrijednosti",
+    "title": "Ono što nas pokreće",
+    "items": [
+      { "icon": "srce", "title": "Unapređenje zdravstva" },
+      { "icon": "stit", "title": "Visokokvalitetna zdravstvena zaštita" },
+      { "icon": "kvalitet", "title": "Kvalitetni proizvodi" }
+    ]
+  }
+}

@@ -20,24 +20,28 @@ export function LinkedinIcon(props: SVGProps<SVGSVGElement>) {
 export function SocialLinks({ className = "", itemClassName = "" }: { className?: string; itemClassName?: string }) {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
-      <a
-        href={site.social.facebook}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Synthesis Pharma na Facebooku"
-        className={itemClassName}
-      >
-        <FacebookIcon className="size-4" />
-      </a>
-      <a
-        href={site.social.linkedin}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Synthesis Pharma na LinkedInu"
-        className={itemClassName}
-      >
-        <LinkedinIcon className="size-4" />
-      </a>
+      {site.social.facebook && (
+        <a
+          href={site.social.facebook}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Synthesis Pharma na Facebooku"
+          className={itemClassName}
+        >
+          <FacebookIcon className="size-4" />
+        </a>
+      )}
+      {site.social.linkedin && (
+        <a
+          href={site.social.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Synthesis Pharma na LinkedInu"
+          className={itemClassName}
+        >
+          <LinkedinIcon className="size-4" />
+        </a>
+      )}
     </div>
   );
 }

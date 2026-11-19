@@ -1,0 +1,12 @@
+{
+  "seo": {
+    "title": "Blog",
+    "description": "Savjeti o zdravlju, prehrani i proizvodima iz ponude Synthesis Pharme."
+  },
+  "hero": {
+    "title": "Blog",
+    "subtitle": "Savjeti o zdravlju, prehrani i proizvodima iz naše ponude.",
+    "image": "/images/about/farmaceut.jpg"
+  },
+  "empty": "Uskoro novi tekstovi."
+}

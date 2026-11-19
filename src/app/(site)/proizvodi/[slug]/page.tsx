@@ -168,9 +168,7 @@ export default async function ProductPage({ params }: PageProps<"/proizvodi/[slu
       <Container>
         <p className="flex items-start gap-3 rounded-2xl bg-surface p-5 text-sm text-muted">
           <Info className="mt-0.5 size-4 shrink-0 text-brand-500" aria-hidden />
-          {brand.slug === "vitabiotics"
-            ? "Dodaci prehrani nisu zamjena za uravnoteženu i raznovrsnu prehranu i zdrav način života. Prije upotrebe pročitajte uputstvo, a za savjet se obratite ljekaru ili farmaceutu."
-            : "Za više informacija o proizvodu i dostupnosti obratite se farmaceutu ili nas kontaktirajte."}
+          {brand.productNote ?? "Za više informacija o proizvodu i dostupnosti obratite se farmaceutu ili nas kontaktirajte."}
         </p>
       </Container>
 

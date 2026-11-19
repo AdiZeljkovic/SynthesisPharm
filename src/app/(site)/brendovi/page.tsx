@@ -5,11 +5,14 @@ import { CtaBanner } from "@/components/CtaBanner";
 import { Reveal } from "@/components/Reveal";
 import { Container, PageHero, SectionHeading } from "@/components/ui";
 import { brands } from "@/lib/brands";
+import { pages } from "@/lib/pages";
 import { productsByBrand } from "@/lib/products";
 
+const c = pages.brendovi;
+
 export const metadata: Metadata = pageMetadata({
-  title: "Brendovi",
-  description: "Vitabiotics, Nestlé NAN, Bayer Consumer Health i Recordati – renomirani evropski brendovi koje Synthesis Pharma predstavlja na tržištu BiH.",
+  title: c.seo.title || "Brendovi",
+  description: c.seo.description,
   path: "/brendovi",
 });
 
@@ -17,14 +20,14 @@ export default function BrandsPage() {
   return (
     <>
       <PageHero
-        title="Brendovi"
-        subtitle="Renomirane evropske farmaceutske kompanije koje s ponosom predstavljamo na tržištu Bosne i Hercegovine."
-        image="/images/banners/brendovi.jpg"
-        crumbs={[{ href: "/", label: "Početna" }, { label: "Brendovi" }]}
+        title={c.hero.title}
+        subtitle={c.hero.subtitle}
+        image={c.hero.image}
+        crumbs={[{ href: "/", label: "Početna" }, { label: c.hero.title }]}
       />
       <section className="py-24">
         <Container>
-          <SectionHeading eyebrow="Naši partneri" title="Kompanije s kojima sarađujemo" />
+          <SectionHeading eyebrow={c.heading.eyebrow} title={c.heading.title} />
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {brands.map((b, i) => (
               <Reveal key={b.slug} delay={i * 80}>

@@ -4,11 +4,16 @@ import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 import { SocialLinks } from "@/components/SocialIcons";
 import { Container, PageHero } from "@/components/ui";
+import { pages } from "@/lib/pages";
 import { site } from "@/lib/site";
 
+const c = pages.kontakt;
+
 export const metadata: Metadata = pageMetadata({
-  title: "Kontakt",
-  description: `Kontaktirajte Synthesis Pharmu – ${site.address.street}, ${site.address.city}. Tel: ${site.phone}, email: ${site.email}.`,
+  title: c.seo.title || "Kontakt",
+  description:
+    c.seo.description ||
+    `Kontaktirajte Synthesis Pharmu – ${site.address.street}, ${site.address.city}. Tel: ${site.phone}, email: ${site.email}.`,
   path: "/kontakt",
 });
 
@@ -29,17 +34,17 @@ export default function ContactPage() {
   return (
     <>
       <PageHero
-        title="Kontakt"
-        subtitle="Imate pitanje ili prijedlog za saradnju? Pišite nam – odgovaramo u najkraćem roku."
-        image="/images/banners/kontakt.jpg"
-        crumbs={[{ href: "/", label: "Početna" }, { label: "Kontakt" }]}
+        title={c.hero.title}
+        subtitle={c.hero.subtitle}
+        image={c.hero.image}
+        crumbs={[{ href: "/", label: "Početna" }, { label: c.hero.title }]}
       />
 
       <section className="py-20">
         <Container className="grid gap-10 lg:grid-cols-12">
           <div className="rounded-[2rem] border border-slate-200/80 bg-white p-8 sm:p-10 lg:col-span-8">
-            <h2 className="text-3xl font-extrabold tracking-tight text-ink">Kontaktirajte nas</h2>
-            <p className="mt-2 text-muted">Polja označena zvjezdicom su obavezna.</p>
+            <h2 className="text-3xl font-extrabold tracking-tight text-ink">{c.form.title}</h2>
+            {c.form.note && <p className="mt-2 text-muted">{c.form.note}</p>}
             <div className="relative mt-8">
               <ContactForm />
             </div>
@@ -47,7 +52,7 @@ export default function ContactPage() {
 
           <aside className="flex flex-col gap-6 lg:col-span-4">
             <div className="rounded-[2rem] bg-brand-950 p-8 text-brand-100 sm:p-10">
-              <h2 className="text-2xl font-extrabold text-white">Kontakt podaci</h2>
+              <h2 className="text-2xl font-extrabold text-white">{c.infoTitle}</h2>
               <ul className="mt-8 space-y-6">
                 {info.map((i) => (
                   <li key={i.label} className="flex gap-4">
@@ -85,7 +90,7 @@ export default function ContactPage() {
           <div className="overflow-hidden rounded-[2rem] border border-slate-200/80">
             <iframe
               src={site.mapEmbed}
-              title="Synthesis Pharma na mapi – Rajlovačka cesta 23, Sarajevo"
+              title={`Synthesis Pharma na mapi – ${site.address.street}, ${site.address.city}`}
               className="h-[420px] w-full"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

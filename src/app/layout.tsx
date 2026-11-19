@@ -1,11 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { SmoothScroll } from "@/components/SmoothScroll";
-import { Spotlight } from "@/components/Spotlight";
-import { JsonLd } from "@/components/JsonLd";
-import { DEFAULT_OG_IMAGE, organizationLd } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -66,22 +61,8 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="bs" className={`${jakarta.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col font-sans">
-        <JsonLd data={organizationLd()} />
-        <a
-          href="#sadrzaj"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:shadow-lg"
-        >
-          Preskoči na sadržaj
-        </a>
-        <Header />
-        <main id="sadrzaj" className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        <SmoothScroll />
-        <Spotlight />
-      </body>
+      {/* Header/footer sajta su u (site)/layout.tsx – admin (/admin) ih nema */}
+      <body className="flex min-h-full flex-col font-sans">{children}</body>
     </html>
   );
 }

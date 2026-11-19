@@ -43,3 +43,6 @@ next-env.d.ts
 
 # generisane WebP verzije slika (scripts/optimize-images.mjs)
 /public/_img/
+
+# Podaci admina (lozinka, token, sesije) – nikad u repo
+/public/admin/_data/

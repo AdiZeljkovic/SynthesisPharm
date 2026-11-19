@@ -17,12 +17,8 @@ export function CtaBanner() {
           />
           <div className="relative flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                Tražite pouzdanog partnera za tržište BiH?
-              </h2>
-              <p className="mt-3 text-lg text-white/85">
-                Javite nam se – rado ćemo predstaviti kako možemo pozicionirati vaše proizvode.
-              </p>
+              <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">{site.cta.title}</h2>
+              {site.cta.text && <p className="mt-3 text-lg text-white/85">{site.cta.text}</p>}
             </div>
             <div className="flex flex-wrap items-center gap-4">
               <ButtonLink href="/kontakt" variant="white">

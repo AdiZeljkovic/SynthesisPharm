@@ -3,31 +3,14 @@
 import { useId, useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 
-const tabs = [
-  {
-    key: "ciljevi",
-    label: "Ciljevi",
-    items: [
-      "Približiti naše proizvode što većem broju korisnika",
-      "Kvalitetna zdravstvena zaštita dostupna svima",
-      "Saradnja sa renomiranim globalnim brendovima",
-    ],
-  },
-  {
-    key: "proizvodi",
-    label: "Proizvodi",
-    items: ["Lijekovi", "Dodaci prehrani", "Medicinska sredstva", "Mliječne formule za dojenčad"],
-  },
-  {
-    key: "brendovi",
-    label: "Brendovi",
-    items: ["Recordati", "Bayer Consumer Health", "Vitabiotics", "Nestlé NAN"],
-  },
-];
+export type AboutTab = { label: string; items: string[] };
 
-export function AboutTabs() {
+export function AboutTabs({ tabs: allTabs }: { tabs: AboutTab[] }) {
+  const tabs = allTabs.filter((t) => t.label.trim());
   const [active, setActive] = useState(0);
   const id = useId();
+
+  if (tabs.length === 0) return null;
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
@@ -39,10 +22,10 @@ export function AboutTabs() {
 
   return (
     <div>
-      <div role="tablist" aria-label="O nama" className="inline-flex rounded-full bg-surface p-1.5" onKeyDown={onKeyDown}>
+      <div role="tablist" aria-label="O nama" className="inline-flex flex-wrap rounded-full bg-surface p-1.5" onKeyDown={onKeyDown}>
         {tabs.map((t, i) => (
           <button
-            key={t.key}
+            key={i}
             id={`${id}-tab-${i}`}
             role="tab"
             type="button"
@@ -60,7 +43,7 @@ export function AboutTabs() {
       </div>
       {tabs.map((t, i) => (
         <div
-          key={t.key}
+          key={i}
           id={`${id}-panel-${i}`}
           role="tabpanel"
           aria-labelledby={`${id}-tab-${i}`}
@@ -68,8 +51,8 @@ export function AboutTabs() {
           className="mt-6"
         >
           <ul className="grid gap-3 sm:grid-cols-2">
-            {t.items.map((item) => (
-              <li key={item} className="flex animate-fade-up items-start gap-3 rounded-2xl border border-slate-100 bg-white p-4 font-semibold text-ink">
+            {t.items.filter(Boolean).map((item, j) => (
+              <li key={j} className="flex animate-fade-up items-start gap-3 rounded-2xl border border-slate-100 bg-white p-4 font-semibold text-ink">
                 <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-leaf-500" aria-hidden />
                 {item}
               </li>

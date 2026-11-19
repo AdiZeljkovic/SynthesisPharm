@@ -1,0 +1,114 @@
+[
+  {
+    "slug": "cardioace",
+    "name": "Cardioace",
+    "brand": "vitabiotics",
+    "image": "/images/products/cardioace.jpg",
+    "photo": "",
+    "description": "Cardioace dodatak prehrani je formulisan na temelju novih studija koje dokazuju djelovanje određenih nutrijenata na normalnu funkciju srca i krvnog sistema. Cardioace tablete sadrže kompleksnu kombinaciju nutrijenata, poput tiamina (vitamin B1), koji doprinose normalnoj funkciji srca i krvnog sistema."
+  },
+  {
+    "slug": "diabetone",
+    "name": "Diabetone",
+    "brand": "vitabiotics",
+    "image": "/images/products/diabetone.jpg",
+    "photo": "",
+    "description": "Diabetone je specijalno formulisan dodatak prehrani sa 21 hranjivim sastojkom koji pomažu u održavanju dnevnih potreba organizma. Ovi hranjivi sastojci uključuju hrom, vitamin B6 te tiamin (vitamin B1) koji pomaže u održavanju normalnog funkcionisanja nervnog sistema."
+  },
+  {
+    "slug": "feroglobin",
+    "name": "Feroglobin",
+    "brand": "vitabiotics",
+    "image": "/images/products/feroglobin.jpg",
+    "photo": "/images/products/photo/feroglobin.jpg",
+    "logo": "/images/featured/feroglobin-logo.png",
+    "leaflet": { "src": "/images/leaflets/feroglobin.jpg", "width": 1600, "height": 3260 },
+    "description": "Feroglobin je dodatak prehrani koji služi za očuvanje zdravlja, vitalnosti i energije. Sadrži nutrijente potrebne za formiranje hemoglobina i crvenih krvnih zrnaca kao što su: željezo, folna kiselina, vitamini B12 i B6, cink. Potražite ga u obliku kapsula s vremenski postepenim otpuštanjem ili u obliku sirupa."
+  },
+  {
+    "slug": "immunace",
+    "name": "Immunace",
+    "brand": "vitabiotics",
+    "image": "/images/products/immunace.jpg",
+    "photo": "",
+    "description": "Immunace asortiman dodataka prehrani sadrži sve vitamine i minerale neophodne za pravilnu funkciju imunološkog sistema. Visoka doza vitamina D, vitamina C, cinka i selena čine optimalnu kombinaciju mikronutrijenata za zdravlje cjelokupnog organizma i imuniteta."
+  },
+  {
+    "slug": "jointace",
+    "name": "Jointace",
+    "brand": "vitabiotics",
+    "image": "/images/products/jointace.jpg",
+    "photo": "/images/products/photo/jointace.jpg",
+    "logo": "/images/featured/jointace-logo.png",
+    "leaflet": { "src": "/images/leaflets/jointace.jpg", "width": 1500, "height": 16607 },
+    "description": "Jointace je napredan asortiman dodataka prepunih minerala u tragovima, vitamina i hranjivih tvari za podršku zglobovima, hrskavici i aktivnom načinu života u bilo kojoj dobi. Ovaj dodatak prehrani potražite u obliku tableta, kapsula ili gela."
+  },
+  {
+    "slug": "liverel",
+    "name": "Liverel",
+    "brand": "vitabiotics",
+    "image": "/images/products/liverel.jpg",
+    "photo": "/images/products/photo/liverel.jpg",
+    "description": "Liverel tablete predstavljaju multivitaminski i mineralni dodatak prehrani koji služi za prevenciju i korekciju nezadovoljavajućeg statusa vitamina i minerala u organizmu, te normalnu funkciju i zdravlje jetre. Potražite ga u obliku tableta."
+  },
+  {
+    "slug": "menopace",
+    "name": "Menopace",
+    "brand": "vitabiotics",
+    "image": "/images/products/menopace.jpg",
+    "photo": "",
+    "description": "Menopace dodatak prehrani sadrži preko 20 vitamina, minerala i sojin izoflavon, namijenjen ženama u menopauzi i nakon nje. Uspješno otklanja psihičke i fizičke simptome tokom menopauze."
+  },
+  {
+    "slug": "neurozan",
+    "name": "Neurozan",
+    "brand": "vitabiotics",
+    "image": "/images/products/neurozan.jpg",
+    "photo": "/images/products/photo/neurozan.jpg",
+    "logo": "/images/featured/neurozan-logo.png",
+    "leaflet": { "src": "/images/leaflets/neurozan.jpg", "width": 1500, "height": 5737 },
+    "description": "Neurozan je dodatak prehrani na bazi prirodnih bioaktivnih nutrijenata, koji pomažu u očuvanju moždane funkcije i poboljšanju kognitivnih sposobnosti. Potražite ga u obliku tableta."
+  },
+  {
+    "slug": "osteocare",
+    "name": "Osteocare",
+    "brand": "vitabiotics",
+    "image": "/images/products/osteocare.jpg",
+    "photo": "/images/products/photo/osteocare.jpg",
+    "logo": "/images/featured/osteocare-logo.png",
+    "leaflet": { "src": "/images/leaflets/osteocare.jpg", "width": 1600, "height": 3629 },
+    "description": "Osteocare je najprodavaniji dodatak prehrani za zdravlje kostiju u Velikoj Britaniji. Upotrijebljeni sastojci temelje se na novim, međunarodnim spoznajama o utjecaju nutrijenata na zdravlje kostiju te brojnim naučnim studijama iz posljednjih dvadeset godina. Potražite ga u obliku tableta ili sirupa."
+  },
+  {
+    "slug": "perfectil",
+    "name": "Perfectil",
+    "brand": "vitabiotics",
+    "image": "/images/products/perfectil.jpg",
+    "photo": "",
+    "description": "Perfectil je najprodavaniji dodatak prehrani u Velikoj Britaniji za zdravu i lijepu kosu, kožu i nokte. Iza ove formule stoji 45 godina iskustva i istraživanja te 20 nutrijenata koji optimalno podupiru „ljepotu iznutra”."
+  },
+  {
+    "slug": "pregnacare",
+    "name": "Pregnacare",
+    "brand": "vitabiotics",
+    "image": "/images/products/pregnacare.jpg",
+    "photo": "",
+    "description": "Pregnacare Conception tablete su formulisane za punu nutritivnu potporu ženama koje nastoje začeti. Sadrže pažljivo izbalansirane mikronutrijente, poput cinka koji doprinosi normalnoj plodnosti, plus inozitol, L-arginin, N-acetilcistein i selen."
+  },
+  {
+    "slug": "ultra-garlic",
+    "name": "Ultra Garlic",
+    "brand": "vitabiotics",
+    "image": "/images/products/ultra-garlic.jpg",
+    "photo": "",
+    "description": "Ultra Garlic dodatak prehrani je dijetetski proizvod na bazi ekstrakta bijelog luka namijenjen očuvanju zdravlja imunog sistema, srca i cirkulacije. Tablete sadrže alicin, koji je ključni sastojak bijelog luka."
+  },
+  {
+    "slug": "visionace",
+    "name": "Visionace",
+    "brand": "vitabiotics",
+    "image": "/images/products/visionace.jpg",
+    "photo": "",
+    "description": "Visionace dodatak prehrani predstavlja najkompletniju formulu za oči, nastalu kao rezultat dugogodišnjeg naučnog ispitivanja britanske kompanije Vitabiotics. Vitaminsko-mineralna formulacija koju preporučuju vodeći britanski oftalmolozi."
+  }
+]
