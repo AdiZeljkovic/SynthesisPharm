@@ -1,9 +1,24 @@
-import data from "@/content/site.json";
+import raw from "@/content/site.json";
 
 /**
  * Opšti podaci (kontakt, statistika, footer…) – uređuju se u adminu (src/content/site.json).
  * Izvedena polja (telefon za link, mapa) računaju se ovdje.
+ * Eksplicitan tip: kad klijent u adminu isprazni listu (npr. sve brojke), JSON sadrži [] koji bi
+ * TypeScript inače shvatio kao never[] i build bi pao.
  */
+export type SiteData = {
+  name: string;
+  description: string;
+  email: string;
+  phone: string;
+  address: { street: string; city: string; country: string };
+  hours: string;
+  social: { facebook: string; linkedin: string };
+  stats: { value: number; label: string }[];
+  footerText: string;
+  cta: { title: string; text: string };
+};
+const data = raw as SiteData;
 const addressLine = `${data.address.street}, ${data.address.city}`;
 
 export const site = {

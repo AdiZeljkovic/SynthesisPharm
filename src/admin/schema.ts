@@ -12,7 +12,7 @@ export type Field =
   | (Base & { kind: "image"; required?: boolean })
   | (Base & { kind: "number" })
   | (Base & { kind: "color" })
-  | (Base & { kind: "date" })
+  | (Base & { kind: "date"; required?: boolean })
   | (Base & { kind: "checkbox" })
   | (Base & { kind: "select"; options: Option[] | "brands" | "icons" })
   | (Base & { kind: "products" })
@@ -343,7 +343,7 @@ export const brandsDef: CollectionDef = {
   fields: [
     { kind: "text", key: "name", label: "Naziv", required: true },
     { kind: "text", key: "category", label: "Kategorija", required: true, placeholder: "npr. Dodaci prehrani" },
-    { kind: "text", key: "origin", label: "Porijeklo", placeholder: "npr. Velika Britanija · od 1971." },
+    { kind: "text", key: "origin", label: "Porijeklo (država)", placeholder: "npr. Velika Britanija" },
     { kind: "textarea", key: "summary", label: "Kratak opis (za kartice)", rows: 3, required: true },
     { kind: "strings", key: "about", label: "Opis kompanije", itemLabel: "paragraf", textarea: true },
     { kind: "textarea", key: "mission", label: "Misija i vizija (citat)", rows: 3, help: "Ostavite prazno da se ne prikazuje." },
@@ -408,7 +408,7 @@ export const productsDef: CollectionDef = {
 export const blogFields: Field[] = [
   { kind: "text", key: "title", label: "Naslov", required: true },
   { kind: "textarea", key: "excerpt", label: "Uvod / sažetak", rows: 3, required: true, help: "Prikazuje se na karticama i u Google rezultatima." },
-  { kind: "date", key: "date", label: "Datum objave" },
+  { kind: "date", key: "date", label: "Datum objave", required: true },
   { kind: "text", key: "category", label: "Kategorija", required: true, placeholder: "npr. Zdravlje kostiju" },
   { kind: "image", key: "cover", label: "Naslovna slika", required: true, help: "Najbolje vodoravna fotografija (16:9), bar 1600 px širine." },
   { kind: "text", key: "coverAlt", label: "Opis naslovne slike" },

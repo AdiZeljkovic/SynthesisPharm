@@ -8,10 +8,10 @@ import { Fields, validate } from "../fields";
 import { MarkdownEditor } from "../MarkdownEditor";
 import { Thumb } from "../media";
 import { useSaver } from "../publish";
-import { go, useDirtyGuard } from "../router";
+import { go, replaceRoute, useDirtyGuard } from "../router";
 import { blogFields } from "../schema";
 import { Button, Card, FieldLabel, Notice, Spinner, cx, inputCls, useConfirm } from "../ui";
-import { parsePost, serializePost, slugify, today, type PostData } from "../util";
+import { RESERVED_SLUGS, parsePost, serializePost, slugInput, slugify, today, type PostData } from "../util";
 import { EditorFrame, RequiredErrors } from "./DocEditor";
 
 const DIR = "src/content/blog";
@@ -116,11 +116,12 @@ export function BlogEditor({ slug }: { slug: string }) {
   const dirty = !!post && JSON.stringify(post) !== orig;
   useDirtyGuard(dirty);
 
-  const finalSlug = isNew ? (slugTouched ? newSlug : slugify(post?.data.title ?? "")) : slug;
+  const finalSlug = isNew ? slugify(slugTouched ? newSlug : (post?.data.title ?? "")) : slug;
   const slugError = useMemo(() => {
     if (!isNew) return "";
     if (!finalSlug) return "Unesite naslov (adresa se pravi iz njega).";
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(finalSlug)) return "Adresa smije imati samo mala slova, brojeve i crtice.";
+    if (RESERVED_SLUGS.includes(finalSlug)) return `Adresa "${finalSlug}" je rezervisana – dodajte još neku riječ.`;
     if (existing.includes(finalSlug)) return "Članak sa ovom adresom već postoji.";
     return "";
   }, [isNew, finalSlug, existing]);
@@ -129,6 +130,7 @@ export function BlogEditor({ slug }: { slug: string }) {
     if (!post) return;
     const errs = validate(blogFields, post.data as unknown as Record<string, unknown>);
     if (!post.body.trim()) errs.push("Tekst članka");
+    if (post.data.date && !/^\d{4}-\d{2}-\d{2}$/.test(post.data.date)) errs.push("Datum objave (neispravan format)");
     if (slugError) errs.push(`Adresa: ${slugError}`);
     setErrors(errs);
     if (errs.length) return;
@@ -142,10 +144,7 @@ export function BlogEditor({ slug }: { slug: string }) {
       setPost(saved);
       setOrig(JSON.stringify(saved));
       listCache = null;
-      if (isNew) {
-        history.replaceState(null, "", `#/blog/${finalSlug}`);
-        window.dispatchEvent(new HashChangeEvent("hashchange"));
-      }
+      if (isNew) replaceRoute(`/blog/${finalSlug}`);
     }
   };
 
@@ -193,12 +192,13 @@ export function BlogEditor({ slug }: { slug: string }) {
                 <input
                   id="post-slug"
                   className={cx(inputCls, "max-w-md font-mono", !isNew && "bg-slate-50 text-muted")}
-                  value={finalSlug}
+                  value={isNew && slugTouched ? newSlug : finalSlug}
                   readOnly={!isNew}
                   onChange={(e) => {
                     setSlugTouched(true);
-                    setNewSlug(slugify(e.target.value));
+                    setNewSlug(slugInput(e.target.value));
                   }}
+                  onBlur={() => slugTouched && setNewSlug(slugify(newSlug))}
                 />
                 <span>/</span>
               </div>

@@ -49,6 +49,18 @@ export function useRoute() {
   return hash.replace(/^#\/?/, "").split("/").filter(Boolean).map(decodeURIComponent);
 }
 
+/**
+ * Zamijeni adresu bez pitanja o nesačuvanim izmjenama (npr. odmah nakon čuvanja, prije nego React
+ * stigne osvježiti "dirty" stanje) i obavijesti komponente o novoj ruti.
+ */
+export function replaceRoute(path: string) {
+  const hash = path.startsWith("#") ? path : `#${path}`;
+  dirty = false;
+  last = hash;
+  history.replaceState(null, "", hash);
+  window.dispatchEvent(new HashChangeEvent("hashchange"));
+}
+
 export function go(path: string) {
   window.location.hash = path.startsWith("#") ? path : `#${path}`;
 }

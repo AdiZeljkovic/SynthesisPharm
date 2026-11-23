@@ -59,7 +59,7 @@ function FieldView({ field, value, onChange }: { field: Field; value: Obj; onCha
     case "date":
       return (
         <div>
-          <FieldLabel label={field.label} help={field.help} htmlFor={id} />
+          <FieldLabel label={field.label} help={field.help} htmlFor={id} required={field.required} />
           <input id={id} type="date" className={cx(inputCls, "max-w-56")} value={String(v ?? "")} onChange={(e) => set(e.target.value)} />
         </div>
       );

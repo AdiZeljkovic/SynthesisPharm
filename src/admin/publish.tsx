@@ -23,6 +23,7 @@ const active = (r?: Run) => !!r && r.status !== "completed";
 export function PublishProvider({ children, enabled }: { children: ReactNode; enabled: boolean }) {
   const [runs, setRuns] = useState<Run[] | null>(null);
   const [error, setError] = useState("");
+  const [fails, setFails] = useState(0);
   const [expected, setExpected] = useState<string | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
@@ -31,8 +32,10 @@ export function PublishProvider({ children, enabled }: { children: ReactNode; en
       const res = await api.status();
       setRuns(res.runs);
       setError("");
+      setFails(0);
     } catch (e) {
       setError((e as Error).message);
+      setFails((f) => f + 1); // nova vrijednost → efekt ispod zakaže sljedeći pokušaj
     }
   }, []);
 
@@ -52,9 +55,10 @@ export function PublishProvider({ children, enabled }: { children: ReactNode; en
   const waiting = !!expected && (!seen || active(seen));
   useEffect(() => {
     if (!enabled) return;
-    timer.current = setTimeout(refresh, runs === null ? 0 : waiting || active(latest) ? 8000 : 60000);
+    const delay = fails > 0 ? 30000 : runs === null ? 0 : waiting || active(latest) ? 8000 : 60000;
+    timer.current = setTimeout(refresh, delay);
     return () => clearTimeout(timer.current);
-  }, [enabled, runs, waiting, latest, refresh]);
+  }, [enabled, runs, waiting, latest, refresh, fails]);
 
   useEffect(() => {
     if (expected && seen && !active(seen)) {
@@ -151,6 +155,11 @@ export function useSaver() {
           res = await api.save(body);
         } catch (e) {
           if (e instanceof ApiError && e.status === 409 && e.data?.conflicts) {
+            // Novi fajl (baseSha null) na adresi koja već postoji: nikad ne nuditi pregaziti postojeći sadržaj
+            const conflicts = e.data.conflicts as string[];
+            if (body.files?.some((f) => f.baseSha === null && conflicts.includes(f.path))) {
+              throw new Error("Na ovoj adresi već postoji sadržaj (npr. članak s istim naslovom). Promijenite adresu i sačuvajte ponovo.");
+            }
             const ok = await confirm(
               "Sadržaj je u međuvremenu promijenjen",
               "Neko je (možda vi u drugom prozoru) sačuvao novu verziju dok ste uređivali. Ako nastavite, vaša verzija će zamijeniti tu izmjenu.",

@@ -22,11 +22,23 @@ const DIR = path.join(process.cwd(), "src", "content", "blog");
 
 function render(markdown: string) {
   const headings: Post["headings"] = [];
+  const used = new Map<string, number>();
   const renderer = new Renderer();
   renderer.heading = function ({ tokens, depth }) {
     const inner = this.parser.parseInline(tokens);
-    const text = inner.replace(/<[^>]+>/g, "");
-    const id = slugify(text);
+    // Čist tekst za sadržaj članka (React ga sam escapuje, pa entitete dekodiramo)
+    const text = inner
+      .replace(/<[^>]+>/g, "")
+      .replace(/&#39;/g, "'")
+      .replace(/&quot;/g, '"')
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&amp;/g, "&");
+    // Isti naslov dva puta → jedinstven id (naslov, naslov-2, …)
+    const base = slugify(text) || "naslov";
+    const n = (used.get(base) ?? 0) + 1;
+    used.set(base, n);
+    const id = n === 1 ? base : `${base}-${n}`;
     if (depth === 2) headings.push({ id, text });
     return `<h${depth} id="${id}">${inner}</h${depth}>\n`;
   };

@@ -41,7 +41,7 @@ export default async function BrandPage({ params }: PageProps<"/brendovi/[slug]"
       <div style={brandTheme(brand)}>
       <PageHero
         title={brand.name}
-        subtitle={`${brand.category} · ${brand.origin}`}
+        subtitle={[brand.category, brand.origin].filter(Boolean).join(" · ")}
         image={brand.hero ?? "/images/banners/proizvodi.jpg"}
         crumbs={[{ href: "/", label: "Početna" }, { href: "/brendovi", label: "Brendovi" }, { label: brand.name }]}
       />
@@ -91,10 +91,12 @@ export default async function BrandPage({ params }: PageProps<"/brendovi/[slug]"
                   <dt className="text-muted">Kategorija</dt>
                   <dd className="text-right font-bold text-ink">{brand.category}</dd>
                 </div>
-                <div className="flex justify-between gap-4 py-3">
-                  <dt className="text-muted">Porijeklo</dt>
-                  <dd className="text-right font-bold text-ink">{brand.origin}</dd>
-                </div>
+                {brand.origin && (
+                  <div className="flex justify-between gap-4 py-3">
+                    <dt className="text-muted">Porijeklo</dt>
+                    <dd className="text-right font-bold text-ink">{brand.origin}</dd>
+                  </div>
+                )}
                 {items.length > 0 && (
                   <div className="flex justify-between gap-4 py-3">
                     <dt className="text-muted">Proizvoda u ponudi</dt>

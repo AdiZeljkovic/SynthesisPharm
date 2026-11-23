@@ -41,8 +41,9 @@ const MONTHS = [
   "decembar",
 ];
 
-/** 2026-11-17 → "17. novembar 2026." (bez Intl-a, isti rezultat svugdje) */
+/** 2026-11-17 → "17. novembar 2026." (bez Intl-a, isti rezultat svugdje); neispravan datum se vraća kakav jeste */
 export function formatDate(iso: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso;
   const [y, m, d] = iso.split("-").map(Number);
   return `${d}. ${MONTHS[m - 1]} ${y}.`;
 }

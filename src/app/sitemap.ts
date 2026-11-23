@@ -22,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...leafletSlugs.map((s) => ({ url: `${site.url}/proizvodi/${s}/letak/`, changeFrequency: "monthly" as const, priority: 0.7 })),
     ...posts.map((p) => ({
       url: `${site.url}/blog/${p.slug}/`,
-      lastModified: p.date,
+      ...(/^\d{4}-\d{2}-\d{2}$/.test(p.date) ? { lastModified: p.date } : {}),
       changeFrequency: "yearly" as const,
       priority: 0.6,
     })),

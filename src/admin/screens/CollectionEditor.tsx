@@ -7,10 +7,10 @@ import { refreshCatalog, useCatalog } from "../catalog";
 import { Fields, validate } from "../fields";
 import { Thumb } from "../media";
 import { useSaver } from "../publish";
-import { go, useDirtyGuard } from "../router";
+import { go, replaceRoute, useDirtyGuard } from "../router";
 import type { CollectionDef } from "../schema";
 import { Button, Card, FieldLabel, Notice, Spinner, cx, inputCls, useConfirm } from "../ui";
-import { clone, slugify } from "../util";
+import { RESERVED_SLUGS, clone, slugInput, slugify } from "../util";
 import { EditorFrame, RequiredErrors } from "./DocEditor";
 
 type Item = Record<string, unknown> & { slug: string; name: string };
@@ -68,6 +68,7 @@ export function CollectionEditor({ def, slug }: { def: CollectionDef; slug?: str
     items.forEach((it, i) => {
       const label = it.name || `${def.singular} ${i + 1}`;
       if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(it.slug)) errs.push(`${label} → Adresa (samo mala slova, brojevi i crtice)`);
+      else if (RESERVED_SLUGS.includes(it.slug)) errs.push(`${label} → Adresa "${it.slug}" je rezervisana`);
       else if (seen.has(it.slug)) errs.push(`${label} → Adresa "${it.slug}" već postoji`);
       seen.add(it.slug);
       errs.push(...validate(def.fields, it).map((e) => `${label} → ${e}`));
@@ -89,7 +90,7 @@ export function CollectionEditor({ def, slug }: { def: CollectionDef; slug?: str
       setSha(res.files[def.path] ?? sha);
       setFresh(new Set());
       // Novi slug u adresi umjesto @indeks
-      if (index >= 0 && slug?.startsWith("@")) history.replaceState(null, "", `#/${def.id}/${items[index].slug}`);
+      if (index >= 0 && slug?.startsWith("@")) replaceRoute(`/${def.id}/${items[index].slug}`);
       if (catalog) {
         const brands = def.id === "brendovi" ? items.map((b) => ({ slug: b.slug, name: b.name })) : catalog.brands;
         const products = def.id === "proizvodi" ? items.map((p) => ({ slug: p.slug, name: p.name, brand: String(p.brand) })) : catalog.products;
@@ -102,7 +103,16 @@ export function CollectionEditor({ def, slug }: { def: CollectionDef; slug?: str
     if (!items) return;
     const it = items[i];
     if (def.id === "brendovi") {
-      const used = catalog?.products.filter((p) => p.brand === it.slug) ?? [];
+      // Uvijek svjež spisak proizvoda (neko je mogao dodati proizvod u drugom prozoru)
+      let latest;
+      try {
+        const f = await api.file("src/content/products.json");
+        latest = JSON.parse(f.content) as { brand: string }[];
+      } catch {
+        await confirm("Provjera nije uspjela", "Nije moguće provjeriti da li brend ima proizvode. Pokušajte ponovo.", "U redu");
+        return;
+      }
+      const used = latest.filter((p) => p.brand === it.slug);
       if (used.length) {
         await confirm("Brend ima proizvode", `Brend "${it.name}" ima ${used.length} proizvoda. Prvo njih obrišite ili prebacite na drugi brend.`, "U redu");
         return;
@@ -194,7 +204,8 @@ export function CollectionEditor({ def, slug }: { def: CollectionDef; slug?: str
                 className={cx(inputCls, "max-w-xs font-mono", !isNew && "bg-slate-50 text-muted")}
                 value={it.slug}
                 readOnly={!isNew}
-                onChange={(e) => setItems(items.map((x, j) => (j === index ? { ...x, slug: slugify(e.target.value) } : x)))}
+                onChange={(e) => setItems(items.map((x, j) => (j === index ? { ...x, slug: slugInput(e.target.value) } : x)))}
+                onBlur={() => isNew && setItems(items.map((x, j) => (j === index ? { ...x, slug: slugify(x.slug) } : x)))}
               />
               <span>/</span>
             </div>

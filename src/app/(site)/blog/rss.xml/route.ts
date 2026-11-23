@@ -14,7 +14,7 @@ export async function GET() {
       <title>${esc(p.title)}</title>
       <link>${site.url}/blog/${p.slug}/</link>
       <guid>${site.url}/blog/${p.slug}/</guid>
-      <pubDate>${new Date(`${p.date}T08:00:00Z`).toUTCString()}</pubDate>
+      ${/^\d{4}-\d{2}-\d{2}$/.test(p.date) ? `<pubDate>${new Date(`${p.date}T08:00:00Z`).toUTCString()}</pubDate>` : ""}
       <category>${esc(p.category)}</category>
       <description>${esc(p.excerpt)}</description>
     </item>`,

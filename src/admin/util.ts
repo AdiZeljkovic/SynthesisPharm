@@ -2,6 +2,21 @@ import { slugify } from "@/lib/blog-utils";
 
 export { slugify };
 
+/** Dok korisnik kuca adresu: samo dozvoljeni znakovi, ali crtica na kraju ostaje (konačno čišćenje je slugify). */
+export function slugInput(s: string) {
+  return s
+    .toLowerCase()
+    .replace(/đ/g, "dj")
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9-]+/g, "-")
+    .replace(/-{2,}/g, "-")
+    .replace(/^-/, "");
+}
+
+/** Adrese koje admin koristi za svoje ekrane (npr. #/blog/novi) */
+export const RESERVED_SLUGS = ["novi"];
+
 /* ───────── Blog: Markdown sa zaglavljem (frontmatter) ───────── */
 
 export type PostData = {
