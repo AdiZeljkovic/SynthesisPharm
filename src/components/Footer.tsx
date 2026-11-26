@@ -88,7 +88,12 @@ export function Footer() {
           <p>
             © <CurrentYear /> Synthesis Pharma. Sva prava zadržana.
           </p>
-          <p>Stranicu kreirao Adi Zeljković</p>
+          <p>
+            Website by{" "}
+            <a href="https://luminor.solutions/" target="_blank" rel="noopener" className="font-semibold text-brand-100/80 transition hover:text-white">
+              Luminor.Solutions
+            </a>
+          </p>
         </div>
       </div>
     </footer>
